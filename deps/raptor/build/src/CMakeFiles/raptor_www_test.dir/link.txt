@@ -1,0 +1,1 @@
+/usr/bin/gcc -I /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include  -rdynamic CMakeFiles/raptor_www_test.dir/raptor_www_test.c.o  -o raptor_www_test  libraptor2.a -lxml2 

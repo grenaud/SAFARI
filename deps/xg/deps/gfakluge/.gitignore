@@ -1,0 +1,8 @@
+*.o
+*.exe
+test
+*.a
+bin/ 
+\.GFAK_pre-build
+*.DSYM
+gfak

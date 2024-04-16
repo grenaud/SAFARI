@@ -1,0 +1,13 @@
+# Target labels
+ handlegraph
+# Source files and their labels
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph-complete.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-install.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-mkdir.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-download.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-update.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-patch.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-configure.rule
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-build.rule

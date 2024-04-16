@@ -1,0 +1,9 @@
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/install/strip.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/install/local.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/edit_cache.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/handlegraph_static.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/install.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/list_install_components.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/rebuild_cache.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/handlegraph_shared.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-build/CMakeFiles/handlegraph_objs.dir

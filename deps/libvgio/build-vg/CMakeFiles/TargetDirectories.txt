@@ -1,0 +1,11 @@
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/install/strip.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/install/local.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/install.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/list_install_components.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/rebuild_cache.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/vgio_static.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/vgio.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/edit_cache.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/test_libvgio.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/link_target.dir
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph.dir

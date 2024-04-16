@@ -1,0 +1,5 @@
+Name: tabixpp
+Description: Self-packaged tabixpp
+Version: 1.0
+Cflags: -I/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include
+Libs: -L/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/lib -ltabixpp

@@ -1,0 +1,1 @@
+This page is now obsolete. See the [[vg gbwt|VG GBWT Subcommand]] page instead.

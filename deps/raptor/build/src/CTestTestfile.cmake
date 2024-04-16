@@ -1,0 +1,38 @@
+# CMake generated Testfile for 
+# Source directory: /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src
+# Build directory: /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/build/src
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+add_test(raptor_parse_test "raptor_parse_test")
+set_tests_properties(raptor_parse_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;274;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_rfc2396_test "raptor_rfc2396_test")
+set_tests_properties(raptor_rfc2396_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;278;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_uri_test "raptor_uri_test")
+set_tests_properties(raptor_uri_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;282;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_namespace_test "raptor_namespace_test")
+set_tests_properties(raptor_namespace_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;286;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(strcasecmp_test "strcasecmp_test")
+set_tests_properties(strcasecmp_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;290;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_www_test "raptor_www_test")
+set_tests_properties(raptor_www_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;294;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_sequence_test "raptor_sequence_test")
+set_tests_properties(raptor_sequence_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;298;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_stringbuffer_test "raptor_stringbuffer_test")
+set_tests_properties(raptor_stringbuffer_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;302;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_iostream_test "raptor_iostream_test")
+set_tests_properties(raptor_iostream_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;306;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_xml_writer_test "raptor_xml_writer_test")
+set_tests_properties(raptor_xml_writer_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;310;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_turtle_writer_test "raptor_turtle_writer_test")
+set_tests_properties(raptor_turtle_writer_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;314;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_avltree_test "raptor_avltree_test")
+set_tests_properties(raptor_avltree_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;318;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_term_test "raptor_term_test")
+set_tests_properties(raptor_term_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;322;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_permute_test "raptor_permute_test")
+set_tests_properties(raptor_permute_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;326;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_snprintf_test "raptor_snprintf_test")
+set_tests_properties(raptor_snprintf_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;330;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")
+add_test(raptor_sort_r_test "raptor_sort_r_test")
+set_tests_properties(raptor_sort_r_test PROPERTIES  _BACKTRACE_TRIPLES "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;334;ADD_TEST;/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/raptor/src/CMakeLists.txt;0;")

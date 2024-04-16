@@ -1,0 +1,67 @@
+name: Test Mac
+
+# Run on our main branch and any PRs to it, and on release tags, but not every
+# commit in every branch.
+on:
+  push:
+    branches:    
+      - master
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  testmac:
+    name: Test on Mac
+    runs-on: macos-12
+
+    steps:
+      - name: Use cache
+        uses: actions/cache@v2
+        with:
+          path: | 
+            deps
+            lib
+            include
+            bin
+          key: ${{ runner.os }}-12-${{ github.ref }}
+          # Restore keys are a "list", but really only a multiline string is
+          # accepted. Also we match by prefix. And the most recent cache is
+          # used, not the most specific.
+          # See: https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#matching-a-cache-key
+          restore-keys: |
+            ${{ runner.os }}-12-${{ github.base_ref }}
+            ${{ runner.os }}-12
+          
+      - name: Checkout code without submodules
+        uses: actions/checkout@v2
+      
+      - name: Get or restore dependencies
+        run: scripts/restore-deps.sh
+       
+      - name: Install packages
+        # We don't use artemnovichkov/action-homebrew because that's for Linux.
+        # We uninstall everything we don't need in order to prevent linking
+        # conflicts with existing/outdated packages, which we can't resolve
+        # because there's no way to tell Homebrew to force-link when installing
+        # from a Brewfile. We also update Protobuf to make sure we have 3.21.3+
+        # to avoid problems with ABI changes with/without -DNDEBUG.
+        # And we update libomp to make extra sure it will be picked up by the compiler.
+        # We pre-install a pinned txm to work around https://github.com/anko/txm/issues/8
+        run: brew bundle cleanup --force && brew bundle install && brew update && brew install protobuf && brew install libomp && npm install -g txm@7.4.5
+
+      - name: Run build and test
+        run: |
+          brew --prefix
+          export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:/usr/local/opt/bison/bin:$(pwd)/bin:/usr/local/bin:$PATH"
+          which wc
+          wc --version
+          export LD_LIBRARY_PATH=/usr/local/lib/
+          export LIBRARY_PATH=/usr/local/lib/
+          export CFLAGS="-isystem /usr/local/include/"
+          export VG_FULL_TRACEBACK=1
+          echo "Build with $(nproc) threads"
+          make -j$(nproc) test
+        shell: bash

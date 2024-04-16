@@ -1,0 +1,1 @@
+/usr/bin/gcc -I /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include  -rdynamic CMakeFiles/rapper.dir/rapper.c.o  -o rapper  ../src/libraptor2.a -lxml2 

@@ -1,0 +1,1 @@
+/usr/bin/gcc -I /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include  -rdynamic CMakeFiles/raptor_iostream_test.dir/raptor_iostream.c.o  -o raptor_iostream_test  libraptor2.a -lxml2 

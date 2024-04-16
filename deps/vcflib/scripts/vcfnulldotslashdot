@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+# Rewrite null genotypes to ./.
+#
+import sys
+import math
+
+def bincoeff(n,k): return math.factorial(n) / (math.factorial(n-k)*math.factorial(k))
+def multcoeff(n,k): return bincoeff(n+k-1,k)
+
+if len(sys.argv) > 1:
+    inf = open(sys.argv[1])
+else:
+    inf = sys.stdin
+
+for line in inf:
+    if line.startswith("#"):
+        print(line.strip())
+        continue
+    fields = line.strip().split("\t")
+    alleles = len(fields[4].split(","))+1
+    # assume that we have GT:GL
+    # how many genotypes?  assume diploid
+    flatgls = ",".join([str(x) for x in [0]*int(multcoeff(alleles,2))])
+    for i in range(9, len(fields)):
+        if fields[i] == ".":
+            fields[i] = "./.:" + flatgls
+    print("\t".join(fields))

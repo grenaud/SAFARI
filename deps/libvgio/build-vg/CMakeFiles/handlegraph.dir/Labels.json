@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/CMakeFiles/handlegraph-complete.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-install.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-mkdir.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-download.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-update.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-patch.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-configure.rule"
+		},
+		{
+			"file" : "/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/libvgio/build-vg/handlegraph-prefix/src/handlegraph-stamp/handlegraph-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"handlegraph"
+		],
+		"name" : "handlegraph"
+	}
+}

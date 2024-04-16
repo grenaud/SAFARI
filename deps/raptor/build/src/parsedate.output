@@ -1,0 +1,1202 @@
+Terminals unused in grammar
+
+    tID
+
+
+State 16 conflicts: 12 shift/reduce
+State 28 conflicts: 1 shift/reduce
+State 34 conflicts: 1 shift/reduce
+State 48 conflicts: 2 shift/reduce
+State 51 conflicts: 1 shift/reduce
+State 58 conflicts: 13 shift/reduce
+State 60 conflicts: 13 shift/reduce
+State 68 conflicts: 1 shift/reduce
+State 75 conflicts: 6 shift/reduce
+State 88 conflicts: 6 shift/reduce
+
+
+Grammar
+
+    0 $accept: spec $end
+
+    1 spec: %empty
+    2     | spec item
+
+    3 item: time
+    4     | zone
+    5     | date
+    6     | day
+    7     | rel
+    8     | number
+    9     | o_merid
+
+   10 time: tUNUMBER tMERIDIAN
+   11     | iso8601time_colon
+
+   12 iso8601time_colon: HMStime_with_colon sec_fraction_part rel
+   13                  | HMtime_with_colon sec_fraction_part rel
+   14                  | HMStime_with_colon sec_fraction_part iso8601zonepart
+   15                  | HMtime_with_colon sec_fraction_part iso8601zonepart
+
+   16 iso8601zonepart: zonepart_numeric_without_colon
+   17                | zonepart_numeric_with_colon
+   18                | zone
+   19                | %empty
+
+   20 sec_fraction_part: '.' tUNUMBER
+   21                  | %empty
+
+   22 zonepart_numeric_without_colon: tSNUMBER
+
+   23 zonepart_numeric_with_colon: tSNUMBER ':' tUNUMBER
+
+   24 HMStime_with_colon: HMtime_with_colon ':' tUNUMBER
+
+   25 HMtime_with_colon: tUNUMBER ':' tUNUMBER
+
+   26 zone: tTZONE
+   27     | tWZONE
+   28     | tZZONE
+   29     | tZONE
+   30     | tDAYZONE
+   31     | tZONE tDST
+
+   32 day: tDAY
+   33    | tDAY ','
+   34    | tUNUMBER tDAY
+
+   35 date: tUNUMBER '/' tUNUMBER
+   36     | tMONTH tUNUMBER tUNUMBER ':' tUNUMBER ':' tUNUMBER tUNUMBER
+   37     | tUNUMBER '/' tUNUMBER '/' tUNUMBER
+   38     | iso8601date
+   39     | iso8601datetime
+   40     | tUNUMBER tMONTH tSNUMBER
+   41     | tMONTH tUNUMBER tUNUMBER
+   42     | tMONTH tUNUMBER
+   43     | tMONTH tUNUMBER ',' tUNUMBER
+   44     | tUNUMBER tMONTH
+   45     | tUNUMBER tMONTH tUNUMBER
+
+   46 iso8601datetime: iso8601date tTZONE iso8601time
+   47                | tUNUMBER tTZONE iso8601time
+
+   48 iso8601date: tUNUMBER tSNUMBER tSNUMBER
+   49            | tUNUMBER tSNUMBER
+   50            | tUNUMBER iso8601weekspec
+
+   51 iso8601weekspec: tWZONE tUNUMBER
+   52                | tWZONE tUNUMBER tSNUMBER
+
+   53 iso8601time: iso8601time_colon
+   54            | tUNUMBER sec_fraction_part iso8601zonepart
+
+   55 rel: relunit tAGO
+   56    | relunit
+
+   57 relunit: tUNUMBER tYEAR_UNIT
+   58        | tSNUMBER tYEAR_UNIT
+   59        | tYEAR_UNIT
+   60        | tUNUMBER tMONTH_UNIT
+   61        | tSNUMBER tMONTH_UNIT
+   62        | tMONTH_UNIT
+   63        | tUNUMBER tDAY_UNIT
+   64        | tSNUMBER tDAY_UNIT
+   65        | tDAY_UNIT
+   66        | tUNUMBER tHOUR_UNIT
+   67        | tSNUMBER tHOUR_UNIT
+   68        | tHOUR_UNIT
+   69        | tUNUMBER tMINUTE_UNIT
+   70        | tSNUMBER tMINUTE_UNIT
+   71        | tMINUTE_UNIT
+   72        | tUNUMBER tSEC_UNIT
+   73        | tSNUMBER tSEC_UNIT
+   74        | tSEC_UNIT
+
+   75 number: tUNUMBER
+
+   76 o_merid: tMERIDIAN
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    ',' (44) 33 43
+    '.' (46) 20
+    '/' (47) 35 37
+    ':' (58) 23 24 25 36
+    error (256)
+    tAGO (258) 55
+    tDAY <Number> (259) 32 33 34
+    tDAY_UNIT <Number> (260) 63 64 65
+    tDAYZONE <Number> (261) 30
+    tDST (262) 31
+    tHOUR_UNIT <Number> (263) 66 67 68
+    tID (264)
+    tTZONE <Number> (265) 26 46 47
+    tWZONE <Number> (266) 27 51 52
+    tZZONE <Number> (267) 28
+    tMERIDIAN <Meridian> (268) 10 76
+    tMINUTE_UNIT <Number> (269) 69 70 71
+    tMONTH <Number> (270) 36 40 41 42 43 44 45
+    tMONTH_UNIT <Number> (271) 60 61 62
+    tSEC_UNIT <Number> (272) 72 73 74
+    tSNUMBER <Number> (273) 22 23 40 48 49 52 58 61 64 67 70 73
+    tUNUMBER <Number> (274) 10 20 23 24 25 34 35 36 37 40 41 42 43 44 45 47 48 49 50 51 52 54 57 60 63 66 69 72 75
+    tYEAR_UNIT <Number> (275) 57 58 59
+    tZONE <Number> (276) 29 31
+
+
+Nonterminals, with rules where they appear
+
+    $accept (26)
+        on left: 0
+    spec (27)
+        on left: 1 2
+        on right: 0 2
+    item (28)
+        on left: 3 4 5 6 7 8 9
+        on right: 2
+    time (29)
+        on left: 10 11
+        on right: 3
+    iso8601time_colon (30)
+        on left: 12 13 14 15
+        on right: 11 53
+    iso8601zonepart (31)
+        on left: 16 17 18 19
+        on right: 14 15 54
+    sec_fraction_part (32)
+        on left: 20 21
+        on right: 12 13 14 15 54
+    zonepart_numeric_without_colon (33)
+        on left: 22
+        on right: 16
+    zonepart_numeric_with_colon (34)
+        on left: 23
+        on right: 17
+    HMStime_with_colon (35)
+        on left: 24
+        on right: 12 14
+    HMtime_with_colon (36)
+        on left: 25
+        on right: 13 15 24
+    zone (37)
+        on left: 26 27 28 29 30 31
+        on right: 4 18
+    day (38)
+        on left: 32 33 34
+        on right: 6
+    date (39)
+        on left: 35 36 37 38 39 40 41 42 43 44 45
+        on right: 5
+    iso8601datetime (40)
+        on left: 46 47
+        on right: 39
+    iso8601date (41)
+        on left: 48 49 50
+        on right: 38 46
+    iso8601weekspec (42)
+        on left: 51 52
+        on right: 50
+    iso8601time (43)
+        on left: 53 54
+        on right: 46 47
+    rel (44)
+        on left: 55 56
+        on right: 7 12 13
+    relunit (45)
+        on left: 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74
+        on right: 55 56
+    number (46)
+        on left: 75
+        on right: 8
+    o_merid (47)
+        on left: 76
+        on right: 9
+
+
+State 0
+
+    0 $accept: . spec $end
+
+    $default  reduce using rule 1 (spec)
+
+    spec  go to state 1
+
+
+State 1
+
+    0 $accept: spec . $end
+    2 spec: spec . item
+
+    $end          shift, and go to state 2
+    tDAY          shift, and go to state 3
+    tDAY_UNIT     shift, and go to state 4
+    tDAYZONE      shift, and go to state 5
+    tHOUR_UNIT    shift, and go to state 6
+    tTZONE        shift, and go to state 7
+    tWZONE        shift, and go to state 8
+    tZZONE        shift, and go to state 9
+    tMERIDIAN     shift, and go to state 10
+    tMINUTE_UNIT  shift, and go to state 11
+    tMONTH        shift, and go to state 12
+    tMONTH_UNIT   shift, and go to state 13
+    tSEC_UNIT     shift, and go to state 14
+    tSNUMBER      shift, and go to state 15
+    tUNUMBER      shift, and go to state 16
+    tYEAR_UNIT    shift, and go to state 17
+    tZONE         shift, and go to state 18
+
+    item                go to state 19
+    time                go to state 20
+    iso8601time_colon   go to state 21
+    HMStime_with_colon  go to state 22
+    HMtime_with_colon   go to state 23
+    zone                go to state 24
+    day                 go to state 25
+    date                go to state 26
+    iso8601datetime     go to state 27
+    iso8601date         go to state 28
+    rel                 go to state 29
+    relunit             go to state 30
+    number              go to state 31
+    o_merid             go to state 32
+
+
+State 2
+
+    0 $accept: spec $end .
+
+    $default  accept
+
+
+State 3
+
+   32 day: tDAY .
+   33    | tDAY . ','
+
+    ','  shift, and go to state 33
+
+    $default  reduce using rule 32 (day)
+
+
+State 4
+
+   65 relunit: tDAY_UNIT .
+
+    $default  reduce using rule 65 (relunit)
+
+
+State 5
+
+   30 zone: tDAYZONE .
+
+    $default  reduce using rule 30 (zone)
+
+
+State 6
+
+   68 relunit: tHOUR_UNIT .
+
+    $default  reduce using rule 68 (relunit)
+
+
+State 7
+
+   26 zone: tTZONE .
+
+    $default  reduce using rule 26 (zone)
+
+
+State 8
+
+   27 zone: tWZONE .
+
+    $default  reduce using rule 27 (zone)
+
+
+State 9
+
+   28 zone: tZZONE .
+
+    $default  reduce using rule 28 (zone)
+
+
+State 10
+
+   76 o_merid: tMERIDIAN .
+
+    $default  reduce using rule 76 (o_merid)
+
+
+State 11
+
+   71 relunit: tMINUTE_UNIT .
+
+    $default  reduce using rule 71 (relunit)
+
+
+State 12
+
+   36 date: tMONTH . tUNUMBER tUNUMBER ':' tUNUMBER ':' tUNUMBER tUNUMBER
+   41     | tMONTH . tUNUMBER tUNUMBER
+   42     | tMONTH . tUNUMBER
+   43     | tMONTH . tUNUMBER ',' tUNUMBER
+
+    tUNUMBER  shift, and go to state 34
+
+
+State 13
+
+   62 relunit: tMONTH_UNIT .
+
+    $default  reduce using rule 62 (relunit)
+
+
+State 14
+
+   74 relunit: tSEC_UNIT .
+
+    $default  reduce using rule 74 (relunit)
+
+
+State 15
+
+   58 relunit: tSNUMBER . tYEAR_UNIT
+   61        | tSNUMBER . tMONTH_UNIT
+   64        | tSNUMBER . tDAY_UNIT
+   67        | tSNUMBER . tHOUR_UNIT
+   70        | tSNUMBER . tMINUTE_UNIT
+   73        | tSNUMBER . tSEC_UNIT
+
+    tDAY_UNIT     shift, and go to state 35
+    tHOUR_UNIT    shift, and go to state 36
+    tMINUTE_UNIT  shift, and go to state 37
+    tMONTH_UNIT   shift, and go to state 38
+    tSEC_UNIT     shift, and go to state 39
+    tYEAR_UNIT    shift, and go to state 40
+
+
+State 16
+
+   10 time: tUNUMBER . tMERIDIAN
+   25 HMtime_with_colon: tUNUMBER . ':' tUNUMBER
+   34 day: tUNUMBER . tDAY
+   35 date: tUNUMBER . '/' tUNUMBER
+   37     | tUNUMBER . '/' tUNUMBER '/' tUNUMBER
+   40     | tUNUMBER . tMONTH tSNUMBER
+   44     | tUNUMBER . tMONTH
+   45     | tUNUMBER . tMONTH tUNUMBER
+   47 iso8601datetime: tUNUMBER . tTZONE iso8601time
+   48 iso8601date: tUNUMBER . tSNUMBER tSNUMBER
+   49            | tUNUMBER . tSNUMBER
+   50            | tUNUMBER . iso8601weekspec
+   57 relunit: tUNUMBER . tYEAR_UNIT
+   60        | tUNUMBER . tMONTH_UNIT
+   63        | tUNUMBER . tDAY_UNIT
+   66        | tUNUMBER . tHOUR_UNIT
+   69        | tUNUMBER . tMINUTE_UNIT
+   72        | tUNUMBER . tSEC_UNIT
+   75 number: tUNUMBER .
+
+    tDAY          shift, and go to state 41
+    tDAY_UNIT     shift, and go to state 42
+    tHOUR_UNIT    shift, and go to state 43
+    tTZONE        shift, and go to state 44
+    tWZONE        shift, and go to state 45
+    tMERIDIAN     shift, and go to state 46
+    tMINUTE_UNIT  shift, and go to state 47
+    tMONTH        shift, and go to state 48
+    tMONTH_UNIT   shift, and go to state 49
+    tSEC_UNIT     shift, and go to state 50
+    tSNUMBER      shift, and go to state 51
+    tYEAR_UNIT    shift, and go to state 52
+    ':'           shift, and go to state 53
+    '/'           shift, and go to state 54
+
+    tDAY          [reduce using rule 75 (number)]
+    tDAY_UNIT     [reduce using rule 75 (number)]
+    tHOUR_UNIT    [reduce using rule 75 (number)]
+    tTZONE        [reduce using rule 75 (number)]
+    tWZONE        [reduce using rule 75 (number)]
+    tMERIDIAN     [reduce using rule 75 (number)]
+    tMINUTE_UNIT  [reduce using rule 75 (number)]
+    tMONTH        [reduce using rule 75 (number)]
+    tMONTH_UNIT   [reduce using rule 75 (number)]
+    tSEC_UNIT     [reduce using rule 75 (number)]
+    tSNUMBER      [reduce using rule 75 (number)]
+    tYEAR_UNIT    [reduce using rule 75 (number)]
+    $default      reduce using rule 75 (number)
+
+    iso8601weekspec  go to state 55
+
+
+State 17
+
+   59 relunit: tYEAR_UNIT .
+
+    $default  reduce using rule 59 (relunit)
+
+
+State 18
+
+   29 zone: tZONE .
+   31     | tZONE . tDST
+
+    tDST  shift, and go to state 56
+
+    $default  reduce using rule 29 (zone)
+
+
+State 19
+
+    2 spec: spec item .
+
+    $default  reduce using rule 2 (spec)
+
+
+State 20
+
+    3 item: time .
+
+    $default  reduce using rule 3 (item)
+
+
+State 21
+
+   11 time: iso8601time_colon .
+
+    $default  reduce using rule 11 (time)
+
+
+State 22
+
+   12 iso8601time_colon: HMStime_with_colon . sec_fraction_part rel
+   14                  | HMStime_with_colon . sec_fraction_part iso8601zonepart
+
+    '.'  shift, and go to state 57
+
+    $default  reduce using rule 21 (sec_fraction_part)
+
+    sec_fraction_part  go to state 58
+
+
+State 23
+
+   13 iso8601time_colon: HMtime_with_colon . sec_fraction_part rel
+   15                  | HMtime_with_colon . sec_fraction_part iso8601zonepart
+   24 HMStime_with_colon: HMtime_with_colon . ':' tUNUMBER
+
+    '.'  shift, and go to state 57
+    ':'  shift, and go to state 59
+
+    $default  reduce using rule 21 (sec_fraction_part)
+
+    sec_fraction_part  go to state 60
+
+
+State 24
+
+    4 item: zone .
+
+    $default  reduce using rule 4 (item)
+
+
+State 25
+
+    6 item: day .
+
+    $default  reduce using rule 6 (item)
+
+
+State 26
+
+    5 item: date .
+
+    $default  reduce using rule 5 (item)
+
+
+State 27
+
+   39 date: iso8601datetime .
+
+    $default  reduce using rule 39 (date)
+
+
+State 28
+
+   38 date: iso8601date .
+   46 iso8601datetime: iso8601date . tTZONE iso8601time
+
+    tTZONE  shift, and go to state 61
+
+    tTZONE    [reduce using rule 38 (date)]
+    $default  reduce using rule 38 (date)
+
+
+State 29
+
+    7 item: rel .
+
+    $default  reduce using rule 7 (item)
+
+
+State 30
+
+   55 rel: relunit . tAGO
+   56    | relunit .
+
+    tAGO  shift, and go to state 62
+
+    $default  reduce using rule 56 (rel)
+
+
+State 31
+
+    8 item: number .
+
+    $default  reduce using rule 8 (item)
+
+
+State 32
+
+    9 item: o_merid .
+
+    $default  reduce using rule 9 (item)
+
+
+State 33
+
+   33 day: tDAY ',' .
+
+    $default  reduce using rule 33 (day)
+
+
+State 34
+
+   36 date: tMONTH tUNUMBER . tUNUMBER ':' tUNUMBER ':' tUNUMBER tUNUMBER
+   41     | tMONTH tUNUMBER . tUNUMBER
+   42     | tMONTH tUNUMBER .
+   43     | tMONTH tUNUMBER . ',' tUNUMBER
+
+    tUNUMBER  shift, and go to state 63
+    ','       shift, and go to state 64
+
+    tUNUMBER  [reduce using rule 42 (date)]
+    $default  reduce using rule 42 (date)
+
+
+State 35
+
+   64 relunit: tSNUMBER tDAY_UNIT .
+
+    $default  reduce using rule 64 (relunit)
+
+
+State 36
+
+   67 relunit: tSNUMBER tHOUR_UNIT .
+
+    $default  reduce using rule 67 (relunit)
+
+
+State 37
+
+   70 relunit: tSNUMBER tMINUTE_UNIT .
+
+    $default  reduce using rule 70 (relunit)
+
+
+State 38
+
+   61 relunit: tSNUMBER tMONTH_UNIT .
+
+    $default  reduce using rule 61 (relunit)
+
+
+State 39
+
+   73 relunit: tSNUMBER tSEC_UNIT .
+
+    $default  reduce using rule 73 (relunit)
+
+
+State 40
+
+   58 relunit: tSNUMBER tYEAR_UNIT .
+
+    $default  reduce using rule 58 (relunit)
+
+
+State 41
+
+   34 day: tUNUMBER tDAY .
+
+    $default  reduce using rule 34 (day)
+
+
+State 42
+
+   63 relunit: tUNUMBER tDAY_UNIT .
+
+    $default  reduce using rule 63 (relunit)
+
+
+State 43
+
+   66 relunit: tUNUMBER tHOUR_UNIT .
+
+    $default  reduce using rule 66 (relunit)
+
+
+State 44
+
+   47 iso8601datetime: tUNUMBER tTZONE . iso8601time
+
+    tUNUMBER  shift, and go to state 65
+
+    iso8601time_colon   go to state 66
+    HMStime_with_colon  go to state 22
+    HMtime_with_colon   go to state 23
+    iso8601time         go to state 67
+
+
+State 45
+
+   51 iso8601weekspec: tWZONE . tUNUMBER
+   52                | tWZONE . tUNUMBER tSNUMBER
+
+    tUNUMBER  shift, and go to state 68
+
+
+State 46
+
+   10 time: tUNUMBER tMERIDIAN .
+
+    $default  reduce using rule 10 (time)
+
+
+State 47
+
+   69 relunit: tUNUMBER tMINUTE_UNIT .
+
+    $default  reduce using rule 69 (relunit)
+
+
+State 48
+
+   40 date: tUNUMBER tMONTH . tSNUMBER
+   44     | tUNUMBER tMONTH .
+   45     | tUNUMBER tMONTH . tUNUMBER
+
+    tSNUMBER  shift, and go to state 69
+    tUNUMBER  shift, and go to state 70
+
+    tSNUMBER  [reduce using rule 44 (date)]
+    tUNUMBER  [reduce using rule 44 (date)]
+    $default  reduce using rule 44 (date)
+
+
+State 49
+
+   60 relunit: tUNUMBER tMONTH_UNIT .
+
+    $default  reduce using rule 60 (relunit)
+
+
+State 50
+
+   72 relunit: tUNUMBER tSEC_UNIT .
+
+    $default  reduce using rule 72 (relunit)
+
+
+State 51
+
+   48 iso8601date: tUNUMBER tSNUMBER . tSNUMBER
+   49            | tUNUMBER tSNUMBER .
+
+    tSNUMBER  shift, and go to state 71
+
+    tSNUMBER  [reduce using rule 49 (iso8601date)]
+    $default  reduce using rule 49 (iso8601date)
+
+
+State 52
+
+   57 relunit: tUNUMBER tYEAR_UNIT .
+
+    $default  reduce using rule 57 (relunit)
+
+
+State 53
+
+   25 HMtime_with_colon: tUNUMBER ':' . tUNUMBER
+
+    tUNUMBER  shift, and go to state 72
+
+
+State 54
+
+   35 date: tUNUMBER '/' . tUNUMBER
+   37     | tUNUMBER '/' . tUNUMBER '/' tUNUMBER
+
+    tUNUMBER  shift, and go to state 73
+
+
+State 55
+
+   50 iso8601date: tUNUMBER iso8601weekspec .
+
+    $default  reduce using rule 50 (iso8601date)
+
+
+State 56
+
+   31 zone: tZONE tDST .
+
+    $default  reduce using rule 31 (zone)
+
+
+State 57
+
+   20 sec_fraction_part: '.' . tUNUMBER
+
+    tUNUMBER  shift, and go to state 74
+
+
+State 58
+
+   12 iso8601time_colon: HMStime_with_colon sec_fraction_part . rel
+   14                  | HMStime_with_colon sec_fraction_part . iso8601zonepart
+
+    tDAY_UNIT     shift, and go to state 4
+    tDAYZONE      shift, and go to state 5
+    tHOUR_UNIT    shift, and go to state 6
+    tTZONE        shift, and go to state 7
+    tWZONE        shift, and go to state 8
+    tZZONE        shift, and go to state 9
+    tMINUTE_UNIT  shift, and go to state 11
+    tMONTH_UNIT   shift, and go to state 13
+    tSEC_UNIT     shift, and go to state 14
+    tSNUMBER      shift, and go to state 75
+    tUNUMBER      shift, and go to state 76
+    tYEAR_UNIT    shift, and go to state 17
+    tZONE         shift, and go to state 18
+
+    tDAY_UNIT     [reduce using rule 19 (iso8601zonepart)]
+    tDAYZONE      [reduce using rule 19 (iso8601zonepart)]
+    tHOUR_UNIT    [reduce using rule 19 (iso8601zonepart)]
+    tTZONE        [reduce using rule 19 (iso8601zonepart)]
+    tWZONE        [reduce using rule 19 (iso8601zonepart)]
+    tZZONE        [reduce using rule 19 (iso8601zonepart)]
+    tMINUTE_UNIT  [reduce using rule 19 (iso8601zonepart)]
+    tMONTH_UNIT   [reduce using rule 19 (iso8601zonepart)]
+    tSEC_UNIT     [reduce using rule 19 (iso8601zonepart)]
+    tSNUMBER      [reduce using rule 19 (iso8601zonepart)]
+    tUNUMBER      [reduce using rule 19 (iso8601zonepart)]
+    tYEAR_UNIT    [reduce using rule 19 (iso8601zonepart)]
+    tZONE         [reduce using rule 19 (iso8601zonepart)]
+    $default      reduce using rule 19 (iso8601zonepart)
+
+    iso8601zonepart                 go to state 77
+    zonepart_numeric_without_colon  go to state 78
+    zonepart_numeric_with_colon     go to state 79
+    zone                            go to state 80
+    rel                             go to state 81
+    relunit                         go to state 30
+
+
+State 59
+
+   24 HMStime_with_colon: HMtime_with_colon ':' . tUNUMBER
+
+    tUNUMBER  shift, and go to state 82
+
+
+State 60
+
+   13 iso8601time_colon: HMtime_with_colon sec_fraction_part . rel
+   15                  | HMtime_with_colon sec_fraction_part . iso8601zonepart
+
+    tDAY_UNIT     shift, and go to state 4
+    tDAYZONE      shift, and go to state 5
+    tHOUR_UNIT    shift, and go to state 6
+    tTZONE        shift, and go to state 7
+    tWZONE        shift, and go to state 8
+    tZZONE        shift, and go to state 9
+    tMINUTE_UNIT  shift, and go to state 11
+    tMONTH_UNIT   shift, and go to state 13
+    tSEC_UNIT     shift, and go to state 14
+    tSNUMBER      shift, and go to state 75
+    tUNUMBER      shift, and go to state 76
+    tYEAR_UNIT    shift, and go to state 17
+    tZONE         shift, and go to state 18
+
+    tDAY_UNIT     [reduce using rule 19 (iso8601zonepart)]
+    tDAYZONE      [reduce using rule 19 (iso8601zonepart)]
+    tHOUR_UNIT    [reduce using rule 19 (iso8601zonepart)]
+    tTZONE        [reduce using rule 19 (iso8601zonepart)]
+    tWZONE        [reduce using rule 19 (iso8601zonepart)]
+    tZZONE        [reduce using rule 19 (iso8601zonepart)]
+    tMINUTE_UNIT  [reduce using rule 19 (iso8601zonepart)]
+    tMONTH_UNIT   [reduce using rule 19 (iso8601zonepart)]
+    tSEC_UNIT     [reduce using rule 19 (iso8601zonepart)]
+    tSNUMBER      [reduce using rule 19 (iso8601zonepart)]
+    tUNUMBER      [reduce using rule 19 (iso8601zonepart)]
+    tYEAR_UNIT    [reduce using rule 19 (iso8601zonepart)]
+    tZONE         [reduce using rule 19 (iso8601zonepart)]
+    $default      reduce using rule 19 (iso8601zonepart)
+
+    iso8601zonepart                 go to state 83
+    zonepart_numeric_without_colon  go to state 78
+    zonepart_numeric_with_colon     go to state 79
+    zone                            go to state 80
+    rel                             go to state 84
+    relunit                         go to state 30
+
+
+State 61
+
+   46 iso8601datetime: iso8601date tTZONE . iso8601time
+
+    tUNUMBER  shift, and go to state 65
+
+    iso8601time_colon   go to state 66
+    HMStime_with_colon  go to state 22
+    HMtime_with_colon   go to state 23
+    iso8601time         go to state 85
+
+
+State 62
+
+   55 rel: relunit tAGO .
+
+    $default  reduce using rule 55 (rel)
+
+
+State 63
+
+   36 date: tMONTH tUNUMBER tUNUMBER . ':' tUNUMBER ':' tUNUMBER tUNUMBER
+   41     | tMONTH tUNUMBER tUNUMBER .
+
+    ':'  shift, and go to state 86
+
+    $default  reduce using rule 41 (date)
+
+
+State 64
+
+   43 date: tMONTH tUNUMBER ',' . tUNUMBER
+
+    tUNUMBER  shift, and go to state 87
+
+
+State 65
+
+   25 HMtime_with_colon: tUNUMBER . ':' tUNUMBER
+   54 iso8601time: tUNUMBER . sec_fraction_part iso8601zonepart
+
+    '.'  shift, and go to state 57
+    ':'  shift, and go to state 53
+
+    $default  reduce using rule 21 (sec_fraction_part)
+
+    sec_fraction_part  go to state 88
+
+
+State 66
+
+   53 iso8601time: iso8601time_colon .
+
+    $default  reduce using rule 53 (iso8601time)
+
+
+State 67
+
+   47 iso8601datetime: tUNUMBER tTZONE iso8601time .
+
+    $default  reduce using rule 47 (iso8601datetime)
+
+
+State 68
+
+   51 iso8601weekspec: tWZONE tUNUMBER .
+   52                | tWZONE tUNUMBER . tSNUMBER
+
+    tSNUMBER  shift, and go to state 89
+
+    tSNUMBER  [reduce using rule 51 (iso8601weekspec)]
+    $default  reduce using rule 51 (iso8601weekspec)
+
+
+State 69
+
+   40 date: tUNUMBER tMONTH tSNUMBER .
+
+    $default  reduce using rule 40 (date)
+
+
+State 70
+
+   45 date: tUNUMBER tMONTH tUNUMBER .
+
+    $default  reduce using rule 45 (date)
+
+
+State 71
+
+   48 iso8601date: tUNUMBER tSNUMBER tSNUMBER .
+
+    $default  reduce using rule 48 (iso8601date)
+
+
+State 72
+
+   25 HMtime_with_colon: tUNUMBER ':' tUNUMBER .
+
+    $default  reduce using rule 25 (HMtime_with_colon)
+
+
+State 73
+
+   35 date: tUNUMBER '/' tUNUMBER .
+   37     | tUNUMBER '/' tUNUMBER . '/' tUNUMBER
+
+    '/'  shift, and go to state 90
+
+    $default  reduce using rule 35 (date)
+
+
+State 74
+
+   20 sec_fraction_part: '.' tUNUMBER .
+
+    $default  reduce using rule 20 (sec_fraction_part)
+
+
+State 75
+
+   22 zonepart_numeric_without_colon: tSNUMBER .
+   23 zonepart_numeric_with_colon: tSNUMBER . ':' tUNUMBER
+   58 relunit: tSNUMBER . tYEAR_UNIT
+   61        | tSNUMBER . tMONTH_UNIT
+   64        | tSNUMBER . tDAY_UNIT
+   67        | tSNUMBER . tHOUR_UNIT
+   70        | tSNUMBER . tMINUTE_UNIT
+   73        | tSNUMBER . tSEC_UNIT
+
+    tDAY_UNIT     shift, and go to state 35
+    tHOUR_UNIT    shift, and go to state 36
+    tMINUTE_UNIT  shift, and go to state 37
+    tMONTH_UNIT   shift, and go to state 38
+    tSEC_UNIT     shift, and go to state 39
+    tYEAR_UNIT    shift, and go to state 40
+    ':'           shift, and go to state 91
+
+    tDAY_UNIT     [reduce using rule 22 (zonepart_numeric_without_colon)]
+    tHOUR_UNIT    [reduce using rule 22 (zonepart_numeric_without_colon)]
+    tMINUTE_UNIT  [reduce using rule 22 (zonepart_numeric_without_colon)]
+    tMONTH_UNIT   [reduce using rule 22 (zonepart_numeric_without_colon)]
+    tSEC_UNIT     [reduce using rule 22 (zonepart_numeric_without_colon)]
+    tYEAR_UNIT    [reduce using rule 22 (zonepart_numeric_without_colon)]
+    $default      reduce using rule 22 (zonepart_numeric_without_colon)
+
+
+State 76
+
+   57 relunit: tUNUMBER . tYEAR_UNIT
+   60        | tUNUMBER . tMONTH_UNIT
+   63        | tUNUMBER . tDAY_UNIT
+   66        | tUNUMBER . tHOUR_UNIT
+   69        | tUNUMBER . tMINUTE_UNIT
+   72        | tUNUMBER . tSEC_UNIT
+
+    tDAY_UNIT     shift, and go to state 42
+    tHOUR_UNIT    shift, and go to state 43
+    tMINUTE_UNIT  shift, and go to state 47
+    tMONTH_UNIT   shift, and go to state 49
+    tSEC_UNIT     shift, and go to state 50
+    tYEAR_UNIT    shift, and go to state 52
+
+
+State 77
+
+   14 iso8601time_colon: HMStime_with_colon sec_fraction_part iso8601zonepart .
+
+    $default  reduce using rule 14 (iso8601time_colon)
+
+
+State 78
+
+   16 iso8601zonepart: zonepart_numeric_without_colon .
+
+    $default  reduce using rule 16 (iso8601zonepart)
+
+
+State 79
+
+   17 iso8601zonepart: zonepart_numeric_with_colon .
+
+    $default  reduce using rule 17 (iso8601zonepart)
+
+
+State 80
+
+   18 iso8601zonepart: zone .
+
+    $default  reduce using rule 18 (iso8601zonepart)
+
+
+State 81
+
+   12 iso8601time_colon: HMStime_with_colon sec_fraction_part rel .
+
+    $default  reduce using rule 12 (iso8601time_colon)
+
+
+State 82
+
+   24 HMStime_with_colon: HMtime_with_colon ':' tUNUMBER .
+
+    $default  reduce using rule 24 (HMStime_with_colon)
+
+
+State 83
+
+   15 iso8601time_colon: HMtime_with_colon sec_fraction_part iso8601zonepart .
+
+    $default  reduce using rule 15 (iso8601time_colon)
+
+
+State 84
+
+   13 iso8601time_colon: HMtime_with_colon sec_fraction_part rel .
+
+    $default  reduce using rule 13 (iso8601time_colon)
+
+
+State 85
+
+   46 iso8601datetime: iso8601date tTZONE iso8601time .
+
+    $default  reduce using rule 46 (iso8601datetime)
+
+
+State 86
+
+   36 date: tMONTH tUNUMBER tUNUMBER ':' . tUNUMBER ':' tUNUMBER tUNUMBER
+
+    tUNUMBER  shift, and go to state 92
+
+
+State 87
+
+   43 date: tMONTH tUNUMBER ',' tUNUMBER .
+
+    $default  reduce using rule 43 (date)
+
+
+State 88
+
+   54 iso8601time: tUNUMBER sec_fraction_part . iso8601zonepart
+
+    tDAYZONE  shift, and go to state 5
+    tTZONE    shift, and go to state 7
+    tWZONE    shift, and go to state 8
+    tZZONE    shift, and go to state 9
+    tSNUMBER  shift, and go to state 93
+    tZONE     shift, and go to state 18
+
+    tDAYZONE  [reduce using rule 19 (iso8601zonepart)]
+    tTZONE    [reduce using rule 19 (iso8601zonepart)]
+    tWZONE    [reduce using rule 19 (iso8601zonepart)]
+    tZZONE    [reduce using rule 19 (iso8601zonepart)]
+    tSNUMBER  [reduce using rule 19 (iso8601zonepart)]
+    tZONE     [reduce using rule 19 (iso8601zonepart)]
+    $default  reduce using rule 19 (iso8601zonepart)
+
+    iso8601zonepart                 go to state 94
+    zonepart_numeric_without_colon  go to state 78
+    zonepart_numeric_with_colon     go to state 79
+    zone                            go to state 80
+
+
+State 89
+
+   52 iso8601weekspec: tWZONE tUNUMBER tSNUMBER .
+
+    $default  reduce using rule 52 (iso8601weekspec)
+
+
+State 90
+
+   37 date: tUNUMBER '/' tUNUMBER '/' . tUNUMBER
+
+    tUNUMBER  shift, and go to state 95
+
+
+State 91
+
+   23 zonepart_numeric_with_colon: tSNUMBER ':' . tUNUMBER
+
+    tUNUMBER  shift, and go to state 96
+
+
+State 92
+
+   36 date: tMONTH tUNUMBER tUNUMBER ':' tUNUMBER . ':' tUNUMBER tUNUMBER
+
+    ':'  shift, and go to state 97
+
+
+State 93
+
+   22 zonepart_numeric_without_colon: tSNUMBER .
+   23 zonepart_numeric_with_colon: tSNUMBER . ':' tUNUMBER
+
+    ':'  shift, and go to state 91
+
+    $default  reduce using rule 22 (zonepart_numeric_without_colon)
+
+
+State 94
+
+   54 iso8601time: tUNUMBER sec_fraction_part iso8601zonepart .
+
+    $default  reduce using rule 54 (iso8601time)
+
+
+State 95
+
+   37 date: tUNUMBER '/' tUNUMBER '/' tUNUMBER .
+
+    $default  reduce using rule 37 (date)
+
+
+State 96
+
+   23 zonepart_numeric_with_colon: tSNUMBER ':' tUNUMBER .
+
+    $default  reduce using rule 23 (zonepart_numeric_with_colon)
+
+
+State 97
+
+   36 date: tMONTH tUNUMBER tUNUMBER ':' tUNUMBER ':' . tUNUMBER tUNUMBER
+
+    tUNUMBER  shift, and go to state 98
+
+
+State 98
+
+   36 date: tMONTH tUNUMBER tUNUMBER ':' tUNUMBER ':' tUNUMBER . tUNUMBER
+
+    tUNUMBER  shift, and go to state 99
+
+
+State 99
+
+   36 date: tMONTH tUNUMBER tUNUMBER ':' tUNUMBER ':' tUNUMBER tUNUMBER .
+
+    $default  reduce using rule 36 (date)
