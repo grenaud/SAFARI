@@ -902,8 +902,6 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
 }
             if (posterior_odds > this->posterior_odds_threshold) {
                 shouldKeep = true; // This minimizer passes the filter
-                auto additional_minimizers = find_minimizers(modified_aln_seq, funnel, false);
-                new_minimizers_to_add.insert(new_minimizers_to_add.end(), additional_minimizers.begin(), additional_minimizers.end());
                 break; // Found a valid sequence, no need to check further
             }
         }
