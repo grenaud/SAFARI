@@ -3622,8 +3622,9 @@ IndexRegistry VGIndexes::get_vg_index_registry() {
     });
     
     // Thses used to be a GBWTGraph recipe, but we don't want to produce GBWTGraphs anymore.
-    
-    registry.register_recipe({"safari GBZ"}, {"safari GBWT", "NamedNodeBackTranslation", "XG"},
+
+    registry.register_recipe({"safari GBZ"}, {"NamedNodeBackTranslation", "XG", "safari GBWT"},
+    //registry.register_recipe({"safari GBZ"}, {"safari GBWT", "NamedNodeBackTranslation", "XG"},
                              [](const vector<const IndexFile*>& inputs,
                                 const IndexingPlan* plan,
                                 AliasGraph& alias_graph,
@@ -3670,7 +3671,7 @@ IndexRegistry VGIndexes::get_vg_index_registry() {
         return all_outputs;
     });
 
-    registry.register_recipe({"safari GBZ"}, {"safari GBWT", "XG"},
+    registry.register_recipe({"safari GBZ"}, {"XG", "safari GBWT"},
                              [](const vector<const IndexFile*>& inputs,
                                 const IndexingPlan* plan,
                                 AliasGraph& alias_graph,

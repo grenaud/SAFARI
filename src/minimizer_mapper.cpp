@@ -801,7 +801,6 @@ std::pair<std::string, std::string> findMatchInRead(const std::string& aln_seq, 
 
 
 void MinimizerMapper::map(Alignment& aln, AlignmentEmitter& alignment_emitter) {
-
     // Ship out all the aligned alignments
     alignment_emitter.emit_mapped_single(map(aln));
 }
@@ -837,6 +836,7 @@ auto& non_const_rymer_index = const_cast<gbwtgraph::DefaultMinimizerIndex&>(ryme
 
 std::vector<Minimizer> minimizers = this->find_minimizers(aln.sequence(), funnel, false);
 std::vector<Minimizer> minimizers_rymer = this->find_minimizers(aln.sequence(), funnel, true);
+
 
 // First, perform the necessary operations
 for (auto & r : minimizers_rymer) {
@@ -902,6 +902,8 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
 }
             if (posterior_odds > this->posterior_odds_threshold) {
                 shouldKeep = true; // This minimizer passes the filter
+                //auto additional_minimizers = find_minimizers(modified_aln_seq, funnel, false);
+                //new_minimizers_to_add.insert(new_minimizers_to_add.end(), additional_minimizers.begin(), additional_minimizers.end());
                 break; // Found a valid sequence, no need to check further
             }
         }
