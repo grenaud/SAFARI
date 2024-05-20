@@ -896,18 +896,17 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
             auto [kmer_seq, modified_aln_seq] = findMatchInRead(aln.sequence(), rymer_seq_in_read, minimizer_seq);
             double posterior_odds = calculate_posterior_odds_ptr(minimizer_seq, kmer_seq, aln.sequence().size(), \
                                                                  this->spurious_alignment_prior, dmg, this->minimizer_index.k());
-{
-            //#pragma omp critical
-            //cerr << "po: " << posterior_odds << endl;
-}
+
             if (posterior_odds > this->posterior_odds_threshold) {
                 shouldKeep = true; // This minimizer passes the filter
-                //auto additional_minimizers = find_minimizers(modified_aln_seq, funnel, false);
-                //new_minimizers_to_add.insert(new_minimizers_to_add.end(), additional_minimizers.begin(), additional_minimizers.end());
+                auto additional_minimizers = find_minimizers(modified_aln_seq, funnel, false);
+                new_minimizers_to_add.insert(new_minimizers_to_add.end(), additional_minimizers.begin(), additional_minimizers.end());
                 break; // Found a valid sequence, no need to check further
             }
         }
-        if (shouldKeep) {valid_minimizers.push_back(m);}
+        if (shouldKeep) {
+            valid_minimizers.push_back(m);
+                        }
     }
     // Replace minimizers_rymer with valid minimizers and add new ones
     minimizers_rymer.clear();
@@ -921,11 +920,11 @@ if (!minimizers_rymer.empty()){
 }
 #endif
 
+
 minimizers.insert(minimizers.end(), minimizers_rymer.begin(), minimizers_rymer.end());
 sort(minimizers.begin(), minimizers.end());
 
 vector<Seed> seeds = this->find_seeds<Seed>(minimizers, aln, funnel);
-//cerr << "# seeds: " << seeds.size() << endl;
 
  if (!seeds.empty()){
  clusters = clusterer.cluster_seeds(seeds, get_distance_limit(aln.sequence().size()));
