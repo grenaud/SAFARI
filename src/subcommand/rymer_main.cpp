@@ -48,9 +48,9 @@ int get_default_threads_rymer() {
 }
 
 void help_rymer(char** argv) {
-    std::cerr << "usage: " << argv[0] << " minimizer [options] graph" << std::endl;
+    std::cerr << "usage: " << argv[0] << " rymer [options] graph" << std::endl;
     std::cerr << std::endl;
-    std::cerr << "Builds a (w, k)-rymer index or a (k, s)-syncmer index of the threads in the GBWT" << std::endl;
+    std::cerr << "Builds a (w, k)-RYmer index or a (k, s)-syncmer index of the threads in the GBWT" << std::endl;
     std::cerr << "index. The graph can be any HandleGraph, which will be transformed into a GBWTGraph." << std::endl;
     std::cerr << "The transformation can be avoided by providing a GBWTGraph or a GBZ graph." << std::endl;
     std::cerr << std::endl;
@@ -59,14 +59,12 @@ void help_rymer(char** argv) {
     std::cerr << std::endl;
     std::cerr << "Minimizer options:" << std::endl;
     std::cerr << "    -k, --kmer-length N     length of the kmers in the index (default " << IndexingParameters::rymer_k << ", max " << gbwtgraph::DefaultMinimizerIndex::key_type::KMER_MAX_LENGTH << ")" << std::endl;
-    std::cerr << "    -w, --window-length N   choose the minimizer from a window of N kmers (default " << IndexingParameters::rymer_w << ")" << std::endl;
-    std::cerr << "    -c, --closed-syncmers   index closed syncmers instead of minimizers" << std::endl;
-    std::cerr << "    -s, --smer-length N     use smers of length N in closed syncmers (default " << IndexingParameters::minimizer_s << ")" << std::endl;
+    std::cerr << "    -w, --window-length N   choose the RYmer from a window of N kmers (default " << IndexingParameters::rymer_w << ")" << std::endl;
     std::cerr << std::endl;
     std::cerr << "Other options:" << std::endl;
     std::cerr << "    -d, --distance-index X  annotate the hits with positions in this distance index" << std::endl;
     std::cerr << "    -l, --load-index X      load the index from file X and insert the new kmers into it" << std::endl;
-    std::cerr << "                            (overrides minimizer options)" << std::endl;
+    std::cerr << "                            (overrides RYmer options)" << std::endl;
     std::cerr << "    -g, --gbwt-name X       use the GBWT index in file X (required with a non-GBZ graph)" << std::endl;
     std::cerr << "    -p, --progress          show progress information" << std::endl;
     std::cerr << "    -t, --threads N         use N threads for index construction (default " << get_default_threads_rymer() << ")" << std::endl;

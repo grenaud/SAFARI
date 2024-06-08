@@ -121,8 +121,8 @@ public:
     /// Ignore all minimizers with more than hard_hit_cap hits
     size_t hard_hit_cap = 500;
 
-    // For rymers, whats our posterior odds threshold?
-    double posterior_odds_threshold = 0.5;
+    // For rymers, whats our posterior threshold?
+    double posterior_threshold = 0.5;
 
      // For rymers, whats our prior on spurious alignments?
     double spurious_alignment_prior = 0.5;

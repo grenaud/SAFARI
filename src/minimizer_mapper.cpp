@@ -238,15 +238,12 @@ inline double compute_likelihood_model2(const std::string& kmer_seq, const std::
 
 }
 
-const double calculate_posterior_odds(std::string &kmer_seq, std::string &seed_seq, size_t fragment_length, double spurious_alignment_prior, Damage &dmg, int k) {
+const double calculate_posterior_M1(std::string &kmer_seq, std::string &seed_seq, size_t fragment_length, double spurious_alignment_prior, Damage &dmg, int k) {
 
 if(kmer_seq==seed_seq){return 1.0;}
 
     double log_likelihood_model1 = compute_likelihood_model1(kmer_seq, seed_seq, fragment_length, dmg);
     double log_likelihood_model2 = compute_likelihood_model2(kmer_seq, seed_seq);
-
-    //cerr << "model1 ll: " << log_likelihood_model1 << endl;
-    //cerr << "model2 ll: " << log_likelihood_model2 << endl;
 
     if(log_likelihood_model1==0.0){return 0.0;}
 
@@ -874,11 +871,11 @@ std::vector<Cluster> clusters;
     }
 
 
-FuncType calculate_posterior_odds_ptr = calculate_posterior_odds;
+FuncType calculate_posterior_ptr = calculate_posterior_M1;
 
 
 auto apply_rymer_filter = [&](auto &minimizers_rymer) {
-    if(this->posterior_odds_threshold == 0.0){this->posterior_odds_threshold = 0.0000000001;}
+    if(this->posterior_threshold == 0.0){this->posterior_threshold = 0.0000000001;}
     vector<Minimizer> valid_minimizers; // To store minimizers that pass the filter
     vector<Minimizer> new_minimizers_to_add; // To store all new valid minimizers
     for (auto &m : minimizers_rymer) {
@@ -894,10 +891,10 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
         for (auto &minimizer_seq : minimizer_seqs) {
             if (minimizer_seq.empty()) continue;
             auto [kmer_seq, modified_aln_seq] = findMatchInRead(aln.sequence(), rymer_seq_in_read, minimizer_seq);
-            double posterior_odds = calculate_posterior_odds_ptr(minimizer_seq, kmer_seq, aln.sequence().size(), \
+            double posterior_M1 = calculate_posterior_ptr(minimizer_seq, kmer_seq, aln.sequence().size(), \
                                                                  this->spurious_alignment_prior, dmg, this->minimizer_index.k());
 
-            if (posterior_odds > this->posterior_odds_threshold) {
+            if (posterior_M1 > this->posterior_threshold) {
                 shouldKeep = true; // This minimizer passes the filter
                 auto additional_minimizers = find_minimizers(modified_aln_seq, funnel, false);
                 new_minimizers_to_add.insert(new_minimizers_to_add.end(), additional_minimizers.begin(), additional_minimizers.end());
