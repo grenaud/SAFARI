@@ -89,6 +89,20 @@ Fast haplotype-aware short read mapper.
 - `-V, --spurious-prior FLOAT` : prior on spurious alignment when using RYmers
 - `-t, --threads INT` : number of mapping threads to use
 
+## Damage Matrix (.prof) File Format
+
+To illustrate the format an example damage matrix file is provided below.
+
+`
+A>C     A>G     A>T     C>A     C>G     C>T     G>A     G>C     G>T     T>A     T>C     T>G
+0       0       0       0       0       0       0.32891 0       0       0       0       0
+0       0       0       0       0       0       0.223405        0       0       0       0       0
+0       0       0       0       0       0       0.188599        0       0       0       0       0
+0       0       0       0       0       0       0.164419        0       0       0       0       0
+0       0       0       0       0       0       0.146352        0       0       0       0       0
+`
+
+
 ## Quickstart
 
 ```bash
