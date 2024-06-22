@@ -635,26 +635,19 @@ public:
   }
 
 
-std::vector<std::string> get_minimizer_seq(auto &rymer, auto & rymer_index){
-std::vector<std::string> ret;
-bool reversed = rymer.is_reverse;
-auto found = rymer_index.find(rymer);
-if(found.empty()){
-//std::cerr << "FOUND EMPTY" << std::endl;
-    return ret;
-}
-for (auto & f : found){
-std::uint64_t value = f.second.first;
-//std::cerr << "RYMER PAYLOAD: " << value << f.second.second << std::endl;
-if(value==0){return ret;}
-auto converted_key = gbwtgraph::Key64(value);
-std::string to_append = converted_key.decode(this->k());
-if(reversed){to_append = reverse_complement(to_append);}
-//std::cerr << "CONVERTED SEQ: " << to_append << std::endl;
-ret.emplace_back(to_append);
-                      }
-return ret;
-}
+std::string get_minimizer_seq(auto &r, auto &rymer_index){
+    size_t offset = rymer_index.find_offset(r.value.key, r.value.hash);
+    bool reversed = r.value.is_reverse;
+
+    if (!reversed){
+        return gbwtgraph::Key64(rymer_index.hash_table[offset].second.value.payload.first).decode(rymer_index.k());
+                  }
+
+    else{
+        return reverse_complement(gbwtgraph::Key64(rymer_index.hash_table[offset].second.value.payload.first).decode(rymer_index.k()));
+        }
+
+                                                        }
 
 
 void dump_hash_table(){
@@ -666,7 +659,7 @@ void dump_hash_table(){
         if (cell.first != gbwtgraph::Key64::no_key()) {
             // Decode the sequence from the key, using precomputed k
             const auto &minimizer_seq = cell.first.decode(k);
-            std::cerr << "  kmer key: " << cell.first.get_key() << std::endl;
+            std::cerr << "  kmer key: " << cell.first.get_key() << "  KMER PAYLOAD: " << cell.second.value.payload.first << '\t' << cell.second.value.payload.second << std::endl;
         }
         row++; // Increment row counter for each cell
     }
@@ -683,6 +676,7 @@ int k=this->k();
             // Decode the sequence from the key, using precomputed k
             const auto &rymer_seq = cell.first.decode_rymer(k);
             std::cerr << "RYMER KEY: " << cell.first.get_key() << "  RYMER PAYLOAD: " << cell.second.value.payload.first << '\t' << cell.second.value.payload.second << std::endl;
+            std::cerr << rymer_seq << '\t' << gbwtgraph::Key64(cell.second.value.payload.first).decode(this->k()) << std::endl;
         }
     }
     return;
@@ -889,9 +883,9 @@ std::vector<minimizer_type> minimizers(std::string::const_iterator begin, std::s
     std::vector<minimizer_type> temp_result;
     size_t window_length = this->window_bp(), total_length = end - begin;
     //std::cout << "[DEBUG] Window length: " << window_length << std::endl;
-    if(total_length < window_length) { 
+    if(total_length < window_length) {
         //std::cout << "[DEBUG] Sequence length is shorter than window length." << std::endl;
-        return result; 
+        return result;
     }
 
     CircularBuffer buffer(this->w());
@@ -901,8 +895,9 @@ std::vector<minimizer_type> minimizers(std::string::const_iterator begin, std::s
     std::string::const_iterator iter = begin;
     while(iter != end)
     {
-    forward_key.forward(this->k(), *iter, valid_chars);
-    reverse_key.reverse(this->k(), *iter);
+
+        forward_key.forward(this->k(), *iter, valid_chars);
+        reverse_key.reverse(this->k(), *iter);
 
         if(valid_chars >= this->k()) { buffer.advance(start_pos, forward_key, reverse_key);}
         else                         { buffer.advance(start_pos); }
@@ -938,28 +933,25 @@ std::vector<minimizer_type> minimizers(std::string::const_iterator begin, std::s
 
         }
 
-// Assuming temp_result is defined and accessible in this context
-
 if(!rymer) {
     for(minimizer_type& minimizer : result) {
         if(minimizer.is_reverse) { minimizer.offset += this->k() - 1; }
     }
     std::sort(result.begin(), result.end());
 } else {
-    // Assuming temp_result has been populated beforehand
+
     for(minimizer_type& m : temp_result) {
-        //m.key = kmer2rymer(m.key, this->k()); // Additional step for rymer case
-        //m.hash = m.key.hash(); // Recompute hash based on the new key
-        
+        m.key = kmer2rymer(m.key, this->k());
+        m.hash = m.key.hash();
         if(m.is_reverse) { m.offset += this->k() - 1; }
     }
+
     std::sort(temp_result.begin(), temp_result.end());
 }
 
 // Use the appropriate vector (result or temp_result) based on the rymer condition
 return rymer ? temp_result : result;
 }
-
 
   /*
     Returns all minimizers in the string. The return value is a vector of
@@ -1053,9 +1045,8 @@ return rymer ? temp_result : result;
     return result;
   }
 
-// ELEPHANT
 std::vector<std::tuple<minimizer_type, size_t, size_t>> minimizer_regions(
-    std::string::const_iterator begin, 
+    std::string::const_iterator begin,
     std::string::const_iterator end,
     bool rymer
 ) const
@@ -1076,21 +1067,15 @@ std::vector<std::tuple<minimizer_type, size_t, size_t>> minimizer_regions(
 
     CircularBuffer buffer(this->w());
     size_t valid_chars = 0, start_pos = 0;
-    size_t next_read_offset = 0; 
+    size_t next_read_offset = 0;
     size_t finished_through = 0;
     key_type forward_key, reverse_key;
     std::string::const_iterator iter = begin;
     while(iter != end)
     {
-             if(!rymer){
-             forward_key.forward(this->k(), *iter, valid_chars);
-             reverse_key.reverse(this->k(), *iter);
-                       }
 
-             else{
-             forward_key.forward(this->k(), *iter, valid_chars);
-             reverse_key.reverse(this->k(), *iter);
-                 }
+        forward_key.forward(this->k(), *iter, valid_chars);
+        reverse_key.reverse(this->k(), *iter);
 
         if(valid_chars >= this->k()) { buffer.advance(start_pos, forward_key, reverse_key); }
         else { buffer.advance(start_pos); }
@@ -1375,7 +1360,7 @@ size_t find_first(key_type key, size_t hash) const
     if(this->hash_table[offset].first == key_type::no_key()) {
       // Print to cerr before returning when the key is no_key
       //std::cerr << "Returning offset for no_key: " << offset << std::endl;
-      return 42;
+      return -1;
     }
     if(this->hash_table[offset].first == key) {
       return this->hash_table[offset].second.value.payload.first;
@@ -1388,7 +1373,7 @@ size_t find_first(key_type key, size_t hash) const
 
   // This should not happen.
   std::cerr << "MinimizerIndex::find_offset(): Cannot find the offset for key " << key << std::endl;
-  return 42;
+  return -1;
 }
 
 size_t find_second(key_type key, size_t hash) const
@@ -1400,7 +1385,7 @@ size_t find_second(key_type key, size_t hash) const
     if(this->hash_table[offset].first == key_type::no_key()) {
       // Print to cerr before returning when the key is no_key
       //std::cerr << "Returning offset for no_key: " << offset << std::endl;
-      return 42;
+      return -1;
     }
     if(this->hash_table[offset].first == key) {
       return this->hash_table[offset].second.value.payload.second;
@@ -1413,7 +1398,7 @@ size_t find_second(key_type key, size_t hash) const
 
   // This should not happen.
   std::cerr << "MinimizerIndex::find_offset(): Cannot find the offset for key " << key << std::endl;
-  return 42;
+  return -1;
 }
 
 //std::vector<cell_type> hash_table;

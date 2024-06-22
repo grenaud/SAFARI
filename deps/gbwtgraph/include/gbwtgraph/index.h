@@ -18,7 +18,6 @@
 namespace gbwtgraph
 {
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -32,6 +31,7 @@ void
 index_haplotypes(const GBWTGraph& graph, bool rymer, MinimizerIndex<KeyType>& index,
                  const std::function<payload_type(const pos_t&)>& get_payload, unsigned int k=21)
 {
+
   typedef typename MinimizerIndex<KeyType>::minimizer_type minimizer_type;
 
   int threads = omp_get_max_threads();
@@ -60,12 +60,7 @@ index_haplotypes(const GBWTGraph& graph, bool rymer, MinimizerIndex<KeyType>& in
             index.insert(current_cache[i].first, current_cache[i].second, payload[i]);
                   }
         else{
-            auto rymer_key = index.kmer2rymer(current_cache[i].first.key, k);
-            current_cache[i].first.key=rymer_key;
-            current_cache[i].first.hash=rymer_key.hash();
-            index.insert(current_cache[i].first, current_cache[i].second, {current_cache[i].first.original_kmer_key.get_key(), 42});
-            current_cache[i].first.original_kmer_key = current_cache[i].first.key;
-            current_cache[i].first.original_kmer_hash = current_cache[i].first.key.hash();
+            index.insert(current_cache[i].first, current_cache[i].second, {current_cache[i].first.original_kmer_key.get_key(), -1});
                   }
             }
       }
@@ -89,10 +84,9 @@ index_haplotypes(const GBWTGraph& graph, bool rymer, MinimizerIndex<KeyType>& in
     auto iter = traversal.begin();
     size_t node_start = 0;
     int thread_id = omp_get_thread_num();
-
     for(minimizer_type& minimizer : minimizers)
     {
-       if(minimizer.empty()) { continue; }
+      if(minimizer.empty()) { continue; }
 
       // Find the node covering minimizer starting position.
       size_t node_length = graph.get_length(*iter);
@@ -114,7 +108,6 @@ index_haplotypes(const GBWTGraph& graph, bool rymer, MinimizerIndex<KeyType>& in
       }
       cache[thread_id].emplace_back(minimizer, pos);
     }
-
     if(cache[thread_id].size() >= MINIMIZER_CACHE_SIZE) { flush_cache(thread_id); }
   };
 
@@ -125,23 +118,21 @@ index_haplotypes(const GBWTGraph& graph, bool rymer, MinimizerIndex<KeyType>& in
     we may skip windows that cross from a reverse node to a forward node (from a forward node to a
     reverse node).
   */
-
-  for_each_haplotype_window(graph, index.window_bp(), find_minimizers, (threads > 1), false);
+  for_each_haplotype_window(graph, index.window_bp(), find_minimizers, (threads > 1));
   for(int thread_id = 0; thread_id < threads; thread_id++) { flush_cache(thread_id); }
 
-  // Output the total minimizer count here
-std::cerr << "Total count: " << minimizer_count << std::endl;
-
   if(rymer){
-  //std::cerr << "DUMPING RYMER HASH" << std::endl;
-  //index.dump_hash_table_rymer();
+  index.dump_hash_table_rymer();
            }
 
   else{
-  //std::cerr << "DUMPING MINIMIZER HASH" << std::endl;
-  //index.dump_hash_table();
+  index.dump_hash_table();
       }
 
 }
+
+//------------------------------------------------------------------------------
+
+} // namespace gbwtgraph
 
 #endif // GBWTGRAPH_CONSTRUCTION_H
