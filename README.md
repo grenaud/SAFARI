@@ -4,6 +4,7 @@
 ## Overview
 **vg SAFARI (Sensitive Alignments from a RYmer Index)** is a modified version of the subcommand vg giraffe from the vg toolkit.
 SAFARI is modified specifically to recover more alignments from ancient DNA samples, which suffer from characteristic substitution patterns due to chemical damage.
+SAFARI is a modification from a frozen version of vg (Solara, version 1.44).
 
 ## Installation
 
@@ -11,7 +12,7 @@ SAFARI is modified specifically to recover more alignments from ancient DNA samp
 
 ## Usage
 
-`./bin/vg safari [options] > output.gam`
+`vg safari [options] > output.gam`
 
 Fast haplotype-aware short read mapper.
 
@@ -89,7 +90,7 @@ Fast haplotype-aware short read mapper.
 
 ## Quickstart
 
-
+`vg safari -fq1 [reads.fq] -m [graph.min] -q [graph.ry] -Z [graph.giraffe.gbz] -d [graph.dist] --deam-3p [3p.prof] --deam-5p [5p.prof] > [output.gam]`
 
 ## Contact
 
