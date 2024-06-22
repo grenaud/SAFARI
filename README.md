@@ -8,8 +8,8 @@ SAFARI is a modification from a frozen version of vg (Solara, version 1.44).
 
 ## Compilation
 
-git clone --recursive https://github.com/grenaud/SAFARI
-./source_me && make -j [# threads]
+`git clone --recursive https://github.com/grenaud/SAFARI
+./source_me && make -j [# threads]`
 
 ## Usage
 
