@@ -90,7 +90,8 @@ Fast haplotype-aware short read mapper.
 
 ## Quickstart
 
-`vg safari -fq1 [reads.fq] -m [graph.min] -q [graph.ry] -Z [graph.giraffe.gbz] -d [graph.dist] --deam-3p [3p.prof] --deam-5p [5p.prof] > [output.gam]`
+`vg safari -fq1 [reads.fq] -m [graph.min] -q [graph.ry] -Z [graph.giraffe.gbz] -d [graph.dist] \
+ --deam-3p [3p.prof] --deam-5p [5p.prof] > [output.gam]`
 
 ## Contact
 
