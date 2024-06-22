@@ -6,9 +6,10 @@
 SAFARI is modified specifically to recover more alignments from ancient DNA samples, which suffer from characteristic substitution patterns due to chemical damage.
 SAFARI is a modification from a frozen version of vg (Solara, version 1.44).
 
-## Installation
+## Compilation
 
-## Usage
+git clone --recursive https://github.com/grenaud/SAFARI
+./source_me && make -j [# threads]
 
 ## Usage
 
