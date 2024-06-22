@@ -25,36 +25,6 @@ char convertBaseToRymer(const char base) {
     }
 }
 
-/*
-const std::string convertToRymerSpace(const std::string& input) {
-    //std::cerr << "KMER: " << input << std::endl;
-    std::string output;
-    output.reserve(input.size());
-
-    for (const char c : input) {
-        switch (c) {
-            case 'A':
-            case 'G':
-                output.push_back('A');
-                break;
-            case 'C':
-            case 'T':
-                output.push_back('C');
-                break;
-            case 'N':
-                output.push_back('N');
-                break;
-            default:
-                // Handle invalid characters or throw an exception, depending on your requirements
-                std::cerr << "Invalid character: " << c << std::endl;
-                break;
-        }
-    }
-    //std::cerr << "RYMER: " << output << std::endl;
-    return output;
-}
-*/
-
 //------------------------------------------------------------------------------
 
 // Numerical class constants.

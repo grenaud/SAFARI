@@ -489,37 +489,6 @@ Key64::decode(size_t k) const
   return result.str();
 }
 
-/*
-Key64
-Key64::encode_rymer(const std::string& sequence)
-{
-    key_type packed = 0;
-    for(auto c : sequence)
-    {
-        //std::cerr << "Character being encoded: " << c << std::endl;
-
-        if(c != 'A' && c != 'C' && c != 'G' && c != 'T') {
-            throw std::runtime_error("[ENCODE_RYMER] Key64::encode_rymer(): Unexpected character in input sequence: " + std::string(1, c));
-        }
-        
-        auto packed_char = CHAR_TO_PACK_RYMER[c];
-        //std::cerr << "Packed value of character: " << (int)packed_char << std::endl;
-
-        if(packed_char > PACK_MASK_RYMER) {
-            std::cerr << "Failed to encode character '" << c << "' (ASCII " << (int)c << ")" << std::endl;
-            throw std::runtime_error("[ENCODE_RYMER] Key64::encode(): Cannot encode character '" + std::string(1, c) + "'");
-        }
-
-        
-        //std::cerr << "Packed value before shifting and OR operation: " << packed << std::endl;
-        packed = (packed << PACK_WIDTH_RYMER) | packed_char;
-       // std::cerr << "Packed value after shifting and OR operation: " << packed << std::endl;
-    }
-    //std::cerr << "Final encoded value: " << packed << std::endl;
-    return Key64(packed);
-}
-*/
-
 Key64
 Key64::encode_rymer(const std::string& sequence)
 {
