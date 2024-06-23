@@ -140,19 +140,19 @@ inline const double base_obs_likelihood(char kmer, char seed, int position, unsi
     if(kmer == 'N' || seed == 'N'){return 0.25;}
 
     // Convert DNA bases to indexes
-    auto base_to_index = [](char base) -> int {
+    auto base_to_index = [&kmer, &seed](char base) -> int {
         switch (base) {
             case 'A': return 0;
             case 'C': return 1;
             case 'G': return 2;
             case 'T': return 3;
-            default: cerr << "BASE: " << base << endl; throw std::invalid_argument("Invalid DNA base");
+            default: cerr << "BASE: " << base << " kmer: " << kmer << " seed: " << seed << endl;
+                      throw std::invalid_argument("Invalid DNA base");
         }
     };
 
     int kmer_index = base_to_index(kmer);
     int seed_index = base_to_index(seed); // Uncomment if seed index is needed
-
 
 return dmg.subDeamDiNuc[fragment_length][position].p[kmer_index][seed_index];
 
@@ -213,8 +213,7 @@ inline double compute_likelihood_model2(const std::string& kmer_seq, const std::
     double b = -0.8528;
     int mismatches = compute_mismatches(kmer_seq, seed_seq);
     size_t kmer_seq_size = kmer_seq.length();
-    int k = seed_seq.length(); // Assuming 'k' is derived from seed_seq length
-
+    int k = seed_seq.length();
     // Calculate expected mismatch probability
     double p = a * pow(kmer_seq_size, b);
     // Ensure p is between 0 and 1
@@ -223,27 +222,23 @@ inline double compute_likelihood_model2(const std::string& kmer_seq, const std::
     double likelihood = binomial_coefficient(kmer_seq_size, mismatches) *
                             pow(p, mismatches) *
                             pow(1 - p, kmer_seq_size - mismatches);
-{
-//#pragma omp critical
- //   cerr << "model2 likelihood: " << likelihood << endl;
-}
-
     if (k < 22) {
-
-        // Return log likelihood
-        return log(likelihood); // Likelihood is a probability between 0 and 1
+        return log(likelihood);
     } else {
         return log(0.01);
     }
 
 }
 
-const double calculate_posterior_M1(std::string &kmer_seq, std::string &seed_seq, size_t fragment_length, double spurious_alignment_prior, Damage &dmg, int k) {
+const double calculate_posterior_odds(std::string &kmer_seq, std::string &seed_seq, size_t fragment_length, double spurious_alignment_prior, Damage &dmg, int k) {
 
 if(kmer_seq==seed_seq){return 1.0;}
 
     double log_likelihood_model1 = compute_likelihood_model1(kmer_seq, seed_seq, fragment_length, dmg);
     double log_likelihood_model2 = compute_likelihood_model2(kmer_seq, seed_seq);
+
+    //cerr << "model1 ll: " << log_likelihood_model1 << endl;
+    //cerr << "model2 ll: " << log_likelihood_model2 << endl;
 
     if(log_likelihood_model1==0.0){return 0.0;}
 
@@ -759,8 +754,9 @@ std::string reverseSequence(const std::string& seq) {
     return reversedSeq;
 }
 
-std::pair<std::string, std::string> findMatchInRead(const std::string& aln_seq, const std::string& rymer_seq, const std::string& minimizer_seq) {
-    if(minimizer_seq == "NOT FOUND"){return {"No match found", aln_seq};}
+
+std::pair<std::string, std::string> get_read_seq(const std::string& aln_seq, const std::string& rymer_seq, const std::string& minimizer_seq) {
+    if(minimizer_seq == "NOT FOUND"){return {"", aln_seq};}
 
     // Preconvert rymer_seq to Rymer space once
     const std::string rymerRY = gbwtgraph::convertToRymerSpace(rymer_seq);
@@ -793,21 +789,20 @@ std::pair<std::string, std::string> findMatchInRead(const std::string& aln_seq, 
         return {matchSubstr, modifiedAlnSeq};
     }
 
-    return {"No match found", aln_seq}; // If no match, return original unmodified
+    return {"", aln_seq}; // If no match, return original unmodified
 }
-
 
 void MinimizerMapper::map(Alignment& aln, AlignmentEmitter& alignment_emitter) {
     // Ship out all the aligned alignments
     alignment_emitter.emit_mapped_single(map(aln));
 }
 
+
 bool foundMatchingKey=false;
 size_t rymer_count = 0;
 size_t minimizer_count = 0;
 
 vector<Alignment> MinimizerMapper::map(Alignment& aln) {
-
 
 auto& non_const_minimizer_index = const_cast<gbwtgraph::DefaultMinimizerIndex&>(minimizer_index);
 auto& non_const_rymer_index = const_cast<gbwtgraph::DefaultMinimizerIndex&>(rymer_index);
@@ -835,29 +830,11 @@ std::vector<Minimizer> minimizers = this->find_minimizers(aln.sequence(), funnel
 std::vector<Minimizer> minimizers_rymer = this->find_minimizers(aln.sequence(), funnel, true);
 
 
-// First, perform the necessary operations
 for (auto & r : minimizers_rymer) {
     r.value.key = rymer_index.kmer2rymer(r.value.key, rymer_index.k());
     r.value.hash = r.value.key.hash();
-    if (r.occs != nullptr) {
-        auto minkey = gbwtgraph::Key64(r.occs->payload.first);
-        auto payload_first = minimizer_index.find_first(minkey, minkey.hash());
-        auto payload_second = minimizer_index.find_second(minkey, minkey.hash());
-        r.occs->payload.first = payload_first;
-        r.occs->payload.second = payload_second;
-    }
-}
+                                  }
 
-
-// Then, erase elements with r.occs == nullptr in a separate pass
-minimizers_rymer.erase(std::remove_if(minimizers_rymer.begin(), minimizers_rymer.end(),
-                                      [this](const Minimizer& r) {
- if(r.occs == nullptr){return false;}
- auto minkey = gbwtgraph::Key64(r.occs->payload.first);
- auto payload_first = minimizer_index.find_first(minkey, minkey.hash());
- return payload_first == 42;
- }),
-                       minimizers_rymer.end());
 
 rymers_start_index = minimizers.size();
 
@@ -871,44 +848,31 @@ std::vector<Cluster> clusters;
     }
 
 
-FuncType calculate_posterior_ptr = calculate_posterior_M1;
-
+FuncType calculate_posterior_odds_ptr = calculate_posterior_odds;
 
 auto apply_rymer_filter = [&](auto &minimizers_rymer) {
     if(this->posterior_threshold == 0.0){this->posterior_threshold = 0.0000000001;}
-    vector<Minimizer> valid_minimizers; // To store minimizers that pass the filter
-    vector<Minimizer> new_minimizers_to_add; // To store all new valid minimizers
+    vector<Minimizer> passing_minimizers;
     for (auto &m : minimizers_rymer) {
-        bool shouldKeep = false; // Assume we should not keep unless a minimizer_seq passes the checks
         auto rymerKey = m.value.key;
         string rymer_seq_in_read = m.value.is_reverse ? rymerKey.reverse_complement_rymer(rymer_index.k()).decode_rymer(rymer_index.k())
                                                       : rymerKey.decode_rymer(rymer_index.k());
-        vector<string> minimizer_seqs = non_const_minimizer_index.get_minimizer_seq(m.value, non_const_rymer_index);
-        if (minimizer_seqs.empty()) {
-            continue;
-        }
 
-        for (auto &minimizer_seq : minimizer_seqs) {
-            if (minimizer_seq.empty()) continue;
-            auto [kmer_seq, modified_aln_seq] = findMatchInRead(aln.sequence(), rymer_seq_in_read, minimizer_seq);
-            double posterior_M1 = calculate_posterior_ptr(minimizer_seq, kmer_seq, aln.sequence().size(), \
+        string minimizer_seq = non_const_rymer_index.get_minimizer_seq(m, non_const_rymer_index);
+        if (minimizer_seq.empty()){continue;}
+
+            auto [kmer_seq, aln_seq] = get_read_seq(aln.sequence(), rymer_seq_in_read, minimizer_seq);
+            double posterior_odds = calculate_posterior_odds_ptr(minimizer_seq, kmer_seq, aln.sequence().size(), \
                                                                  this->spurious_alignment_prior, dmg, this->minimizer_index.k());
 
-            if (posterior_M1 > this->posterior_threshold) {
-                shouldKeep = true; // This minimizer passes the filter
-                auto additional_minimizers = find_minimizers(modified_aln_seq, funnel, false);
-                new_minimizers_to_add.insert(new_minimizers_to_add.end(), additional_minimizers.begin(), additional_minimizers.end());
-                break; // Found a valid sequence, no need to check further
+            if (posterior_odds > this->posterior_threshold) {
+                auto fm = find_minimizers(aln_seq, funnel, false);
+                passing_minimizers.insert(passing_minimizers.end(), fm.begin(), fm.end());
+                break;
             }
-        }
-        if (shouldKeep) {
-            valid_minimizers.push_back(m);
-                        }
-    }
-    // Replace minimizers_rymer with valid minimizers and add new ones
+     }
     minimizers_rymer.clear();
-    minimizers_rymer.insert(minimizers_rymer.end(), valid_minimizers.begin(), valid_minimizers.end());
-    minimizers_rymer.insert(minimizers_rymer.end(), new_minimizers_to_add.begin(), new_minimizers_to_add.end());
+    minimizers_rymer.insert(minimizers_rymer.end(), passing_minimizers.begin(), passing_minimizers.end());
 };
 
 #ifdef RYMER
@@ -2002,18 +1966,18 @@ pair<vector<Alignment>, vector<Alignment>> MinimizerMapper::map_paired(Alignment
     vector<vector<size_t>> minimizer_aligned_count_by_read(2);
     //How many hits of each minimizer ended up in each cluster that was kept?
     vector<vector<vector<size_t>>> minimizer_kept_cluster_count_by_read(2); 
-    
+
     // To compute the windows present in any extended cluster, we need to get
     // all the minimizers in any extended cluster.
- 
-    //For each fragment cluster (cluster of clusters), for each read, a vector of all alignments + the order they were fed into the funnel 
+
+    //For each fragment cluster (cluster of clusters), for each read, a vector of all alignments + the order they were fed into the funnel
     //so the funnel can track them
     vector<pair<vector<Alignment>, vector<Alignment>>> alignments;
     vector<pair<vector<size_t>, vector<size_t>>> alignment_indices;
-    pair<int, int> best_alignment_scores (0, 0); // The best alignment score for each end   
+    pair<int, int> best_alignment_scores (0, 0); // The best alignment score for each end
 
     // We will fill this with all computed alignments in estimated score order.
-    // alignments has one entry for each fragment cluster and an extra for unpaired alignment 
+    // alignments has one entry for each fragment cluster and an extra for unpaired alignment
     alignments.resize(max_fragment_num + 2);
     alignment_indices.resize(max_fragment_num + 2);
 
@@ -3679,7 +3643,9 @@ std::vector<MinimizerMapper::Minimizer> MinimizerMapper::find_minimizers(const s
     // Starts and lengths are all 0 if we are using syncmers.
     vector<tuple<gbwtgraph::DefaultMinimizerIndex::minimizer_type, size_t, size_t>> minimizers;
 
-    string rymer_sequence = gbwtgraph::convertToRymerSpace(sequence);
+    // We pass in kmer space sequence as the key is converted to RYmer space during the finding.
+
+     string rymer_sequence = gbwtgraph::convertToRymerSpace(sequence);
 
     if (rymer){
         minimizers = this->rymer_index.minimizer_regions(sequence.begin(), sequence.end(), true);

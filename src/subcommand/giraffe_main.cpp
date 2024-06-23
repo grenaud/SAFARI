@@ -369,7 +369,7 @@ void help_safari(char** argv) {
     << "  --rescue-seed-limit INT       attempt rescue with at most INT seeds [100]" << endl
     << "  --track-provenance            track how internal intermediate alignment candidates were arrived at" << endl
     << "  --track-correctness           track if internal intermediate alignment candidates are correct (implies --track-provenance)" << endl
-    << "  -j, --posterior-threshold FLOAT             cutoff for posterior on correct alignment of a read when using RYmers" << endl
+    << "  -j, --posterior-threshold FLOAT             cutoff for posterior on correct alignment when using RYmers" << endl
     << "  -V, --spurious-prior FLOAT             Prior on spurious alignment when using RYmers" << endl
     << "  -t, --threads INT             number of mapping threads to use" << endl;
 }
@@ -479,7 +479,7 @@ int main_safari(int argc, char** argv) {
     bool track_correctness = false;
     // Should we log our mapping decision making?
     bool show_work = false;
-    // For rymers, at what posterior threshold do we place our filter?
+    // For RYmers, at what posterior threshold do we place our filter?
     double posterior_threshold = 0.5;
     // What's the prior on spurious alignments when using RYmers?
     double spurious_alignment_prior = 0.5;
@@ -586,7 +586,7 @@ int main_safari(int argc, char** argv) {
             {"track-correctness", no_argument, 0, OPT_TRACK_CORRECTNESS},
             {"show-work", no_argument, 0, OPT_SHOW_WORK},
             {"threads", required_argument, 0, 't'},
-            {"posterior-threshold", required_argument, 0, 'j'},
+            {"posterior-odds-threshold", required_argument, 0, 'j'},
             {"spurious-alignment-prior", required_argument, 0, 'V'},
             {"deam-3p", required_argument, 0, 'Y'},
             {"deam-5p", required_argument, 0, 'y'},

@@ -36,7 +36,7 @@ int main_help(int argc, char** argv){
          
          vg::subcommand::Subcommand::for_each(category, [](const vg::subcommand::Subcommand& command) {
             // Announce every subcommand we have
-            
+
             // Pad all the names so the descriptions line up
             string name = command.get_name();
             name.resize(14, ' ');
