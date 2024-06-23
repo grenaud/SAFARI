@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -Werror=return-type -std=c++14 -ggdb -g  -fopenmp -msse4.2 --std=c++11 -O3 -DNDEBUG -ggdb -Ofast -fstrict-aliasing -DNDEBUG -march=native  -rdynamic CMakeFiles/rle_lz77_v1.dir/rle_lz77_v1.cpp.o  -o rle_lz77_v1 

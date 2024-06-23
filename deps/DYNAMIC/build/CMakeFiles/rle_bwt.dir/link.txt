@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -Werror=return-type -std=c++14 -ggdb -g  -fopenmp -msse4.2 --std=c++11 -O3 -DNDEBUG -ggdb -Ofast -fstrict-aliasing -DNDEBUG -march=native  -rdynamic CMakeFiles/rle_bwt.dir/rle_bwt.cpp.o  -o rle_bwt 
