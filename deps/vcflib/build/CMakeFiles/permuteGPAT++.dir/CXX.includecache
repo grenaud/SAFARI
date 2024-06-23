@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/vcflib/src/permuteGPAT++.cpp
+fstream
+-
+split.h
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/vcflib/src/split.h
+vector
+-
+string
+-
+iostream
+-
+math.h
+-
+cmath
+-
+stdlib.h
+-
+time.h
+-
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+
+/home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/vcflib/src/split.h
+string
+-
+vector
+-
+sstream
+-
+string.h
+-
+
