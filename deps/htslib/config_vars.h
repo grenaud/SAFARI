@@ -1,0 +1,5 @@
+#define HTS_CC "/usr/bin/gcc"
+#define HTS_CPPFLAGS ""
+#define HTS_CFLAGS "-Wall -I/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/htslib -isystem /net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/deps/htslib -I/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include  -fvisibility=hidden"
+#define HTS_LDFLAGS "-L/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/lib -Wl,-rpath,/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/lib -fvisibility=hidden "
+#define HTS_LIBS "-ldeflate -llzma -lbz2 -lz -lm  "
