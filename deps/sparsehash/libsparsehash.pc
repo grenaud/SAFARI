@@ -1,4 +1,4 @@
-prefix=/home/projects/MAAG/Magpie/Magpie/vgan_corrected/dep/vg
+prefix=/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
