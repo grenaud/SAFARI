@@ -122,11 +122,11 @@ index_haplotypes(const GBWTGraph& graph, bool rymer, MinimizerIndex<KeyType>& in
   for(int thread_id = 0; thread_id < threads; thread_id++) { flush_cache(thread_id); }
 
   if(rymer){
-  index.dump_hash_table_rymer();
+  //index.dump_hash_table_rymer();
            }
 
   else{
-  index.dump_hash_table();
+  //index.dump_hash_table();
       }
 
 }
