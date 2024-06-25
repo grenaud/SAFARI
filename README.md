@@ -11,7 +11,8 @@ SAFARI is a modification from a frozen version of vg (Solara, version 1.44).
 
 ## Usage
 
-`vg safari [options] > output.gam`
+`vg safari -m [minimizer index file] -q [RYmer index file] -d [distance index file] 
+-x [graph file] --deam-3p [3' damage profile] --5p [5' damage profile] [options] > output.gam`
 
 Fast haplotype-aware short read mapper.
 
