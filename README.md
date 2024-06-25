@@ -3,7 +3,7 @@
 ## Overview
 **vg SAFARI (Sensitive Alignments from a RYmer Index)** is a modified version of the subcommand vg giraffe from the vg toolkit.
 SAFARI is modified specifically to recover more alignments from ancient DNA samples, which suffer from characteristic substitution patterns due to chemical damage.
-SAFARI is a modification from a frozen version of vg (Solara, version 1.44). 
+SAFARI is a modification of giraffe from a frozen version of vg (Solara, version 1.44). 
 
 ## Compilation
 
