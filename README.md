@@ -9,12 +9,6 @@ SAFARI is a modification from a frozen version of vg (Solara, version 1.44).
 
 `git clone --recursive https://github.com/grenaud/SAFARI && cd SAFARI && ./source_me.sh && make -j [threads] || true && make clean && make -j [threads]`
 
-## Usage
-
-`vg safari -m [minimizer index file] -q [RYmer index file] -d [distance index file] 
--x [graph file] --deam-3p [3' damage profile] --5p [5' damage profile] [options] > output.gam`
-
-
 ### Basic Options
 
 - `-Z, --gbz-name FILE` : use this GBZ file (GBWT index + GBWTGraph)
