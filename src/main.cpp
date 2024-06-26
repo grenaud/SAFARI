@@ -29,8 +29,8 @@ void vg_help(char** argv) {
     cerr << "vg: variation graph tool, version " << Version::get_short() << endl
          << endl
          << "usage: " << argv[0] << " <command> [options]" << endl
-         << endl
-         << vg::subcommand::PIPELINE << ":" << endl;
+         << endl;
+         //<< vg::subcommand::PIPELINE << ":" << endl;
          
      vg::subcommand::Subcommand::for_each(vg::subcommand::PIPELINE, [](const vg::subcommand::Subcommand& command) {
         // Announce every subcommand we have
@@ -38,11 +38,13 @@ void vg_help(char** argv) {
         // Pad all the names so the descriptions line up
         string name = command.get_name();
         name.resize(14, ' ');
-        cerr << "  -- " << name << command.get_description() << endl;
+        if (name.find("safari") != string::npos) {
+            cerr << "  -- " << name << command.get_description() << endl;
+                                                 }
      });
      
-     cerr << endl << "For more commands, type `vg help`." << endl;
-     cerr << "For technical support, please visit: https://www.biostars.org/tag/vg/" << endl << endl;
+     //cerr << endl << "For more commands, type `vg help`." << endl;
+     //cerr << "For technical support, please visit: https://www.biostars.org/tag/vg/" << endl << endl;
  }
 
 // We make sure to compile main for the lowest common denominator architecture.

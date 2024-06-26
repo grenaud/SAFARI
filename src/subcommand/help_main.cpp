@@ -32,7 +32,7 @@ int main_help(int argc, char** argv){
          
      for (auto category : {PIPELINE, TOOLKIT, WIDGET, DEVELOPMENT}) {
 
-         cerr << category << ":" << endl;
+         //cerr << category << ":" << endl;
          
          vg::subcommand::Subcommand::for_each(category, [](const vg::subcommand::Subcommand& command) {
             // Announce every subcommand we have
@@ -40,13 +40,15 @@ int main_help(int argc, char** argv){
             // Pad all the names so the descriptions line up
             string name = command.get_name();
             name.resize(14, ' ');
-            cerr << "  -- " << name << command.get_description() << endl;
+            if (name.find("safari") != string::npos) {
+                 cerr << "  -- " << name << command.get_description() << endl;
+                                                     }
          });
          
          cerr << endl;
      }
      
-     cerr << "For technical support, please visit: https://www.biostars.org/tag/vg/" << endl << endl;
+     //cerr << "For technical support, please visit: https://www.biostars.org/tag/vg/" << endl << endl;
      
     
     return 0;
