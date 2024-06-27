@@ -83,6 +83,9 @@ SAFARI is a modification of giraffe from a frozen version of vg (Solara, version
 
 ## Damage Matrix (.prof) File Format
 
+Initial damage profile estimates can be obtained by first aligning to a linear reference and then running bam2prof (https://github.com/grenaud/bam2prof).
+
+
 To illustrate the format an example damage matrix file is provided below.
 
 ```
