@@ -100,14 +100,38 @@ A>C     A>G     A>T     C>A     C>G     C>T     G>A     G>C     G>T     T>A     
 
 ## Quickstart
 
+First, get the test files:
+
 ```bash
-vg safari -fq1 [reads.fq]
--m [graph.min]
--q [graph.ry]
--Z [graph.giraffe.gbz]
--d [graph.dist]
---deam-3p [3p.prof]
---deam-5p [5p.prof] > [output.gam]
+wget -nc -r -l1 --no-parent -nH --cut-dirs=2 -P SAFARI_graph ftp://ftp.healthtech.dtu.dk:/public/SAFARI_graph/
+```
+
+Then create the index files:
+
+```bash
+bin/vg minimizer -d SAFARI_graph/hominin.dist -g SAFARI_graph/hominin.gbwt -t [# threads] -p -o SAFARI_graph/hominin.min SAFARI_graph/hominin.og
+
+bin/vg rymer -d SAFARI_graph/hominin.dist -g SAFARI_graph/hominin.gbwt -t [# threads] -p -o SAFARI_graph/hominin.ry SAFARI_graph/hominin.og
+```
+
+Then run:
+
+```bash
+bin/vg safari -f test/SAFARI/reads.fq
+-m SAFARI_graph/hominin.min
+-q SAFARI_graph/hominin.ry
+-Z SAFARI_graph/hominin.giraffe.gbz
+-d SAFARI_graph/hominin.dist
+--deam-3p test/SAFARI/dhigh3p.prof
+--deam-5p test/SAFARI/dhigh3p.prof > SAFARI_test.gam
+```
+
+To check the GAM file, you can do
+
+```bash
+
+bin/vg stats -a SAFARI_test.gam
+
 ```
 
 ## Contact
