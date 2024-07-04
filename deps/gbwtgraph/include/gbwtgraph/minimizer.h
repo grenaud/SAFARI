@@ -907,7 +907,7 @@ std::vector<minimizer_type> minimizers(std::string::const_iterator begin, std::s
 
         if(static_cast<size_t>(iter - begin) >= window_length && !buffer.empty())
         {
-            // Assuming rymer is a boolean indicating which vector to use
+
            const auto& selected_vector = rymer ? temp_result : result;
             if(selected_vector.empty() || selected_vector.back().hash == buffer.front().hash || \
                                           selected_vector.back().offset < buffer.front().offset)
@@ -949,7 +949,6 @@ if(!rymer) {
     std::sort(temp_result.begin(), temp_result.end());
 }
 
-// Use the appropriate vector (result or temp_result) based on the rymer condition
 return rymer ? temp_result : result;
 }
 
