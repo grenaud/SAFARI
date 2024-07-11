@@ -623,9 +623,9 @@ public:
   {
     for(const cell_type& cell : this->hash_table)
     {
-      if(cell.first != key_type::no_key()) 
-      { 
-          if(!callback(cell)) 
+      if(cell.first != key_type::no_key())
+      {
+          if(!callback(cell))
           {
               return false;
           }
@@ -635,20 +635,22 @@ public:
   }
 
 
-std::string get_minimizer_seq(auto &r, auto &rymer_index){
+std::string get_minimizer_seq(auto &r, auto &rymer_index)
+{
     size_t offset = rymer_index.find_offset(r.value.key, r.value.hash);
     bool reversed = r.value.is_reverse;
-
-    if (!reversed){
-        return gbwtgraph::Key64(rymer_index.hash_table[offset].second.value.payload.first).decode(rymer_index.k());
-                  }
-
-    else{
-        return reverse_complement(gbwtgraph::Key64(rymer_index.hash_table[offset].second.value.payload.first).decode(rymer_index.k()));
-        }
-
-                                                        }
-
+    uint64_t payload = rymer_index.hash_table[offset].second.value.payload.first;
+    if (payload == 0) {
+        // Return a string of 'N's with length equal to rymer_index.k()
+        return std::string(rymer_index.k(), 'N');
+    }
+    gbwtgraph::Key64 key(payload);
+    std::string seq = key.decode(rymer_index.k());
+    if (reversed) {
+        seq = reverse_complement(seq);
+    }
+    return seq;
+}
 
 void dump_hash_table(){
     int k = this->k();
@@ -659,7 +661,8 @@ void dump_hash_table(){
         if (cell.first != gbwtgraph::Key64::no_key()) {
             // Decode the sequence from the key, using precomputed k
             const auto &minimizer_seq = cell.first.decode(k);
-            std::cerr << "  kmer key: " << cell.first.get_key() << "  KMER PAYLOAD: " << cell.second.value.payload.first << '\t' << cell.second.value.payload.second << std::endl;
+            std::cerr << "  kmer key: " << cell.first.get_key() << "  KMER PAYLOAD: " << cell.second.value.payload.first << '\t' << \
+           cell.second.value.payload.second << "  kmer seq: " << minimizer_seq << std::endl;
         }
         row++; // Increment row counter for each cell
     }
@@ -675,8 +678,8 @@ int k=this->k();
         if (cell.first != gbwtgraph::Key64::no_key()) {
             // Decode the sequence from the key, using precomputed k
             const auto &rymer_seq = cell.first.decode_rymer(k);
-            std::cerr << "RYMER KEY: " << cell.first.get_key() << "  RYMER PAYLOAD: " << cell.second.value.payload.first << '\t' << cell.second.value.payload.second << std::endl;
-            std::cerr << rymer_seq << '\t' << gbwtgraph::Key64(cell.second.value.payload.first).decode(this->k()) << std::endl;
+            std::cerr << "RYMER KEY: " << cell.first.get_key() << "  RYMER PAYLOAD: " << cell.second.value.payload.first << '\t' << \
+            cell.second.value.payload.second << "rymer seq: " << rymer_seq << "  kmer seq: " << gbwtgraph::Key64(cell.second.value.payload.first).decode(k) << std::endl;
         }
     }
     return;
@@ -907,7 +910,7 @@ std::vector<minimizer_type> minimizers(std::string::const_iterator begin, std::s
 
         if(static_cast<size_t>(iter - begin) >= window_length && !buffer.empty())
         {
-
+            // Assuming rymer is a boolean indicating which vector to use
            const auto& selected_vector = rymer ? temp_result : result;
             if(selected_vector.empty() || selected_vector.back().hash == buffer.front().hash || \
                                           selected_vector.back().offset < buffer.front().offset)
@@ -949,6 +952,7 @@ if(!rymer) {
     std::sort(temp_result.begin(), temp_result.end());
 }
 
+// Use the appropriate vector (result or temp_result) based on the rymer condition
 return rymer ? temp_result : result;
 }
 

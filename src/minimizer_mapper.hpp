@@ -290,20 +290,18 @@ protected:
         size_t hits; // How many hits does the minimizer have?
         gbwtgraph::hit_type* occs;
         int32_t length; // How long is the minimizer (index's k)
-        int32_t candidates_per_window; // How many minimizers compete to be the best (index's w), or 1 for syncmers.  
+        int32_t candidates_per_window; // How many minimizers compete to be the best (index's w), or 1 for syncmers.
         double score; // Scores as 1 + ln(hard_hit_cap) - ln(hits).
         string read_seq;
         int window_start;
         int run_length;
-        bool rymer=false;
-        int m_index=-1;
         vector<int> mismatch_positions;
 
         // Sort the minimizers in descending order by score and group identical minimizers together.
         inline bool operator< (const Minimizer& another) const {
             return (this->score > another.score || (this->score == another.score && this->value.key < another.value.key));
         }
-        
+
         /// Get the starting position of the given minimizer on the forward strand.
         /// Use this instead of value.offset which can really be the last base for reverse strand minimizers.
         inline size_t forward_offset() const {
@@ -389,7 +387,7 @@ protected:
      * Find the minimizers in the sequence using all minimizer indexes and
      * return them sorted in descending order by score.
      */
-    std::vector<Minimizer> find_minimizers(const std::string& sequence, Funnel& funnel, bool rymer=false) const;
+    std::vector<Minimizer> find_minimizers(const std::string& sequence, Funnel& funnel, bool rymer=false, bool testing=false) const;
     std::vector<Minimizer> find_rymers(const std::string& sequence, Funnel& funnel) const;
 
     /**

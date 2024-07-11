@@ -754,43 +754,38 @@ std::string reverseSequence(const std::string& seq) {
     return reversedSeq;
 }
 
-
 std::pair<std::string, std::string> get_read_seq(const std::string& aln_seq, const std::string& rymer_seq, const std::string& minimizer_seq) {
-    if(minimizer_seq == "NOT FOUND"){return {"", aln_seq};}
 
     // Preconvert rymer_seq to Rymer space once
     const std::string rymerRY = gbwtgraph::convertToRymerSpace(rymer_seq);
     const size_t rymerLength = rymer_seq.length();
-
     // Function to search for rymerRY in a given sequence (already in Rymer space)
     auto searchInSequence = [&](const std::string& seqRY) -> std::pair<size_t, bool> {
         size_t pos = seqRY.find(rymerRY);
         return {pos, pos != std::string::npos};
     };
-
     // Try to find rymerRY in aln_seq (converted to Rymer space)
     std::string alnRY = gbwtgraph::convertToRymerSpace(aln_seq);
     auto [pos, found] = searchInSequence(alnRY);
     if (found) {
-        std::string modifiedAlnSeq = aln_seq;
+        std::string modifiedAlnSeq(aln_seq.length(), 'N');
         modifiedAlnSeq.replace(pos, rymerLength, minimizer_seq);
         return {aln_seq.substr(pos, rymerLength), modifiedAlnSeq};
     }
-
     // Only compute reverse complement and convert if needed
     std::string alnRevCompRY = gbwtgraph::convertToRymerSpace(reverseComplement(aln_seq));
     std::tie(pos, found) = searchInSequence(alnRevCompRY);
     if (found) {
-        std::string modifiedAlnSeq = aln_seq;
+        std::string modifiedAlnSeq(aln_seq.length(), 'N');
         size_t startPosInOriginal = aln_seq.length() - pos - rymerLength;
         modifiedAlnSeq.replace(startPosInOriginal, rymerLength, minimizer_seq);
         // Directly use the reverse complement of the found substring
         std::string matchSubstr = reverseComplement(aln_seq.substr(startPosInOriginal, rymerLength));
         return {matchSubstr, modifiedAlnSeq};
     }
-
-    return {"", aln_seq}; // If no match, return original unmodified
+    return {"", std::string(aln_seq.length(), 'N')}; // If no match, return all 'n's
 }
+
 
 void MinimizerMapper::map(Alignment& aln, AlignmentEmitter& alignment_emitter) {
     // Ship out all the aligned alignments
@@ -829,10 +824,16 @@ auto& non_const_rymer_index = const_cast<gbwtgraph::DefaultMinimizerIndex&>(ryme
 std::vector<Minimizer> minimizers = this->find_minimizers(aln.sequence(), funnel, false);
 std::vector<Minimizer> minimizers_rymer = this->find_minimizers(aln.sequence(), funnel, true);
 
+auto temp_cpy = minimizers_rymer;
+
+//cerr << "minimizers size: " << minimizers.size() << "   rymers size: " << minimizers_rymer.size() << endl;
+
 
 for (auto & r : minimizers_rymer) {
+
     r.value.key = rymer_index.kmer2rymer(r.value.key, rymer_index.k());
     r.value.hash = r.value.key.hash();
+
                                   }
 
 
@@ -858,15 +859,28 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
         string rymer_seq_in_read = m.value.is_reverse ? rymerKey.reverse_complement_rymer(rymer_index.k()).decode_rymer(rymer_index.k())
                                                       : rymerKey.decode_rymer(rymer_index.k());
 
+
         string minimizer_seq = non_const_rymer_index.get_minimizer_seq(m, non_const_rymer_index);
+
         if (minimizer_seq.empty()){continue;}
 
             auto [kmer_seq, aln_seq] = get_read_seq(aln.sequence(), rymer_seq_in_read, minimizer_seq);
+
             double posterior_odds = calculate_posterior_odds_ptr(minimizer_seq, kmer_seq, aln.sequence().size(), \
                                                                  this->spurious_alignment_prior, dmg, this->minimizer_index.k());
 
             if (posterior_odds > this->posterior_threshold) {
-                auto fm = find_minimizers(aln_seq, funnel, false);
+
+                auto fm = find_minimizers(aln_seq, funnel, false, true);
+
+                if (!fm.empty()){
+                   for (auto & recovered : fm){
+                      if (!recovered.value.is_reverse && (kmer_seq != minimizer_seq ))    {
+                          //cerr << kmer_seq << "  " << minimizer_seq << endl;
+                                                          }
+                                               }
+                                }
+
                 passing_minimizers.insert(passing_minimizers.end(), fm.begin(), fm.end());
                 break;
             }
@@ -881,9 +895,15 @@ if (!minimizers_rymer.empty()){
 }
 #endif
 
+if (minimizers_rymer.size() > minimizers.size()){
+    cerr << "WE RECOVERED ONE!!  " << minimizers.size() << "  " << temp_cpy.size() << "  " << minimizers_rymer.size() << endl;
+}
+
 
 minimizers.insert(minimizers.end(), minimizers_rymer.begin(), minimizers_rymer.end());
+
 sort(minimizers.begin(), minimizers.end());
+
 
 vector<Seed> seeds = this->find_seeds<Seed>(minimizers, aln, funnel);
 
@@ -3629,7 +3649,7 @@ void MinimizerMapper::wfa_alignment_to_alignment(const WFAAlignment& wfa_alignme
 
 //-----------------------------------------------------------------------------
 
-std::vector<MinimizerMapper::Minimizer> MinimizerMapper::find_minimizers(const std::string& sequence, Funnel& funnel, bool rymer) const {
+std::vector<MinimizerMapper::Minimizer> MinimizerMapper::find_minimizers(const std::string& sequence, Funnel& funnel, bool rymer, bool testing) const {
 
     if (this->track_provenance) {
         // Start the minimizer finding stage
@@ -3642,10 +3662,6 @@ std::vector<MinimizerMapper::Minimizer> MinimizerMapper::find_minimizers(const s
     // Get minimizers and their window agglomeration starts and lengths
     // Starts and lengths are all 0 if we are using syncmers.
     vector<tuple<gbwtgraph::DefaultMinimizerIndex::minimizer_type, size_t, size_t>> minimizers;
-
-    // We pass in kmer space sequence as the key is converted to RYmer space during the finding.
-
-     string rymer_sequence = gbwtgraph::convertToRymerSpace(sequence);
 
     if (rymer){
         minimizers = this->rymer_index.minimizer_regions(sequence.begin(), sequence.end(), true);
@@ -3697,7 +3713,7 @@ std::vector<MinimizerMapper::Minimizer> MinimizerMapper::find_minimizers(const s
         }
 
         result.push_back({ value, agglomeration_start, agglomeration_length, hits.first, hits.second,
-                            match_length, candidate_count, score, "", window_start, run_length, rymer});
+                            match_length, candidate_count, score, "", window_start, run_length});
 
 
     }
