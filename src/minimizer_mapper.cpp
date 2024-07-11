@@ -824,16 +824,10 @@ auto& non_const_rymer_index = const_cast<gbwtgraph::DefaultMinimizerIndex&>(ryme
 std::vector<Minimizer> minimizers = this->find_minimizers(aln.sequence(), funnel, false);
 std::vector<Minimizer> minimizers_rymer = this->find_minimizers(aln.sequence(), funnel, true);
 
-auto temp_cpy = minimizers_rymer;
-
-//cerr << "minimizers size: " << minimizers.size() << "   rymers size: " << minimizers_rymer.size() << endl;
-
 
 for (auto & r : minimizers_rymer) {
-
     r.value.key = rymer_index.kmer2rymer(r.value.key, rymer_index.k());
     r.value.hash = r.value.key.hash();
-
                                   }
 
 
@@ -859,7 +853,6 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
         string rymer_seq_in_read = m.value.is_reverse ? rymerKey.reverse_complement_rymer(rymer_index.k()).decode_rymer(rymer_index.k())
                                                       : rymerKey.decode_rymer(rymer_index.k());
 
-
         string minimizer_seq = non_const_rymer_index.get_minimizer_seq(m, non_const_rymer_index);
 
         if (minimizer_seq.empty()){continue;}
@@ -870,17 +863,7 @@ auto apply_rymer_filter = [&](auto &minimizers_rymer) {
                                                                  this->spurious_alignment_prior, dmg, this->minimizer_index.k());
 
             if (posterior_odds > this->posterior_threshold) {
-
                 auto fm = find_minimizers(aln_seq, funnel, false, true);
-
-                if (!fm.empty()){
-                   for (auto & recovered : fm){
-                      if (!recovered.value.is_reverse && (kmer_seq != minimizer_seq ))    {
-                          //cerr << kmer_seq << "  " << minimizer_seq << endl;
-                                                          }
-                                               }
-                                }
-
                 passing_minimizers.insert(passing_minimizers.end(), fm.begin(), fm.end());
                 break;
             }
@@ -894,10 +877,6 @@ if (!minimizers_rymer.empty()){
     apply_rymer_filter(minimizers_rymer);
 }
 #endif
-
-if (minimizers_rymer.size() > minimizers.size()){
-    cerr << "WE RECOVERED ONE!!  " << minimizers.size() << "  " << temp_cpy.size() << "  " << minimizers_rymer.size() << endl;
-}
 
 
 minimizers.insert(minimizers.end(), minimizers_rymer.begin(), minimizers_rymer.end());
