@@ -134,6 +134,15 @@ bin/vg stats -a SAFARI_test.gam
 
 ```
 
+## Damage Profiles
+
+We are conscious that a priori it may be difficult to estimate damage rates from your data. There are two ways to get a reasonable initial estimate.
+
+1) Align the data first with a linear aligner, then use bam2prof.
+
+2) Use damage rates previously estimated on samples of a similar age. We have provided in the `profs` directory a number of such profiles from
+ high-visibility papers for samples of various ages sequenced with various library protocols. Of course, preservation conditions will affect these profiles as well.
+
 ## Contact
 
 For questions, contact Joshua Rubin (jdru@dtu.dk) or Gabriel Renaud (gabriel.reno@gmail.com)
