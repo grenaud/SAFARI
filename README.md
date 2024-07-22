@@ -1,7 +1,7 @@
 # SAFARI
 
 ## Overview
-**vg SAFARI (Sensitive Alignments from a RYmer Index)** is a modified version of the subcommand vg giraffe from the vg toolkit.
+**vg SAFARI (Sensitive Alignments from a RYmer Index)** is a modified version of the subcommand vg giraffe from the vg toolkit (https://github.com/vgteam/vg).
 SAFARI is modified specifically to recover more alignments from ancient DNA samples, which suffer from characteristic substitution patterns due to chemical damage.
 SAFARI is a modification of giraffe from a frozen version of vg (Solara, version 1.44). 
 
@@ -83,10 +83,15 @@ SAFARI is a modification of giraffe from a frozen version of vg (Solara, version
 
 ## Damage Matrix (.prof) File Format
 
-Initial damage profile estimates can be obtained by first aligning to a linear reference and then running bam2prof (https://github.com/grenaud/bam2prof).
+SAFARI requires to have initial estimates of the damage rates for the 5' and 3' end of the aDNA fragments. However, this is difficult to obtain a priori. There are a ways you can solve this:
 
 
-To illustrate the format an example damage matrix file is provided below.
+1) Initial damage profile estimates can be obtained by first aligning to a linear reference and then running bam2prof (https://github.com/grenaud/bam2prof).
+
+2) Use damage rates previously estimated on other samples. We have provided in the `profs` directory a number of such profiles from  high-visibility papers for samples of various ages sequenced with various library protocols. Of course, preservation conditions will affect these profiles as well.
+ 
+
+To illustrate the format an example damage matrix file is provided below for the 3' end.
 
 ```
 A>C     A>G     A>T     C>A     C>G     C>T     G>A     G>C     G>T     T>A     T>C     T>G
@@ -97,6 +102,7 @@ A>C     A>G     A>T     C>A     C>G     C>T     G>A     G>C     G>T     T>A     
 0       0       0       0       0       0       0.146352        0       0       0       0       0
 ```
 
+For the remainder of the molecule, the value of the last line will be copied over onto the remaining positions. e.g. in the example above, we only have 5 lines and at 6 bp away from the 3' end, 0.146352 will be used as the rate of G->A substitution.
 
 ## Quickstart
 
@@ -117,7 +123,7 @@ bin/vg rymer -d SAFARI_graph/hominin.dist -g SAFARI_graph/hominin.gbwt -t [# thr
 Then run:
 
 ```bash
-bin/vg safari -f test/SAFARI/reads.fq
+bin/vg safari -f test/SAFARI/reads.fq.gz
 -m SAFARI_graph/hominin.min
 -q SAFARI_graph/hominin.ry
 -Z SAFARI_graph/hominin.giraffe.gbz
@@ -134,14 +140,9 @@ bin/vg stats -a SAFARI_test.gam
 
 ```
 
-## Damage Profiles
+## How to get a bam file?
 
-We are conscious that a priori it may be difficult to estimate damage rates from your data. There are two ways to get a reasonable initial estimate.
-
-1) Align the data first with a linear aligner, then use bam2prof.
-
-2) Use damage rates previously estimated on samples of a similar age. We have provided in the `profs` directory a number of such profiles from
- high-visibility papers for samples of various ages sequenced with various library protocols. Of course, preservation conditions will affect these profiles as well.
+You can obtain a bam file using the command "surject" on the resulting gam file from the vg toolkit (https://github.com/vgteam/vg).
 
 ## Contact
 
