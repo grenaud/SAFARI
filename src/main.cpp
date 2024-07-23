@@ -23,7 +23,7 @@
 using namespace std;
 using namespace google::protobuf;
 using namespace vg;
-
+using namespace vg::subcommand;
 
 void vg_help(char** argv) {
     cerr << "vg: variation graph tool, version " << Version::get_short() << endl
@@ -31,17 +31,20 @@ void vg_help(char** argv) {
          << "usage: " << argv[0] << " <command> [options]" << endl
          << endl;
          //<< vg::subcommand::PIPELINE << ":" << endl;
-         
-     vg::subcommand::Subcommand::for_each(vg::subcommand::PIPELINE, [](const vg::subcommand::Subcommand& command) {
+
+
+     for (auto category : {PIPELINE, TOOLKIT, WIDGET, DEVELOPMENT}) {         
+         vg::subcommand::Subcommand::for_each(category, [](const vg::subcommand::Subcommand& command) {
         // Announce every subcommand we have
         
         // Pad all the names so the descriptions line up
         string name = command.get_name();
         name.resize(14, ' ');
-        if (name.find("safari") != string::npos) {
+        if (name.find("safari") != string::npos || name.find("minimizer") != string::npos || name.find("rymer") != string::npos) {
             cerr << "  -- " << name << command.get_description() << endl;
-                                                 }
+                                                     }
      });
+                                                                    }
      
      //cerr << endl << "For more commands, type `vg help`." << endl;
      //cerr << "For technical support, please visit: https://www.biostars.org/tag/vg/" << endl << endl;

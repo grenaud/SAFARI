@@ -40,12 +40,11 @@ int main_help(int argc, char** argv){
             // Pad all the names so the descriptions line up
             string name = command.get_name();
             name.resize(14, ' ');
-            if (name.find("safari") != string::npos) {
+            if (name.find("safari") != string::npos || name.find("minimizer") != string::npos || name.find("rymer") != string::npos) {
                  cerr << "  -- " << name << command.get_description() << endl;
-                                                     }
+                                                                                                                                     }
          });
-         
-         cerr << endl;
+
      }
      
      //cerr << "For technical support, please visit: https://www.biostars.org/tag/vg/" << endl << endl;
