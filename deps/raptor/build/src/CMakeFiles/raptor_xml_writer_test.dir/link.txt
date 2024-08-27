@@ -1,1 +1,0 @@
-/usr/bin/gcc -I /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include  -rdynamic CMakeFiles/raptor_xml_writer_test.dir/raptor_xml_writer.c.o  -o raptor_xml_writer_test  libraptor2.a -lxml2 

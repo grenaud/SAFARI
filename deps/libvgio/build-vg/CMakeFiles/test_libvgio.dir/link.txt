@@ -1,1 +1,0 @@
-/usr/bin/g++  -O3 -g -O3 -Werror=return-type -std=c++14 -ggdb -g  -fopenmp -msse4.2  -L/net/mimer/mnt/tank/projects2/vgan_ancient/THIRD_VERSION/SAFARI/lib CMakeFiles/test_libvgio.dir/test.cpp.o  -o test_libvgio  libvgio.a /usr/lib/x86_64-linux-gnu/libprotobuf.a -lhts -lbz2 -ldeflate -lhts -lbz2 -ldeflate -lm -lpthread -lz -llzma -ljansson handlegraph-prefix/lib/libhandlegraph.a 

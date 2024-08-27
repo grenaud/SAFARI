@@ -1,1 +1,0 @@
-/usr/bin/gcc -I /home/projects2/vgan_ancient/THIRD_VERSION/SAFARI/include  -rdynamic CMakeFiles/raptor_sequence_test.dir/raptor_sequence.c.o  -o raptor_sequence_test  libraptor2.a -lxml2 

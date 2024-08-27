@@ -1,8 +1,0 @@
-.#*
-*~
-\#*
-bin/
-lib/
-build/
-.gdb_history
-test/
