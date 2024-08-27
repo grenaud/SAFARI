@@ -1,0 +1,6 @@
+*o
+*.la
+*.lo
+*.plist
+.deps
+.libs

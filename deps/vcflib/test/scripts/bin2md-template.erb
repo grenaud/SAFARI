@@ -1,0 +1,72 @@
+% <%= cmd.upcase %>(1) <%= cmd %> (vcflib) | <%= cmd %> (VCF <%= type %>)
+% Erik Garrison and vcflib contributors
+
+# NAME
+
+**<%= cmd %>**
+
+# SYNOPSIS
+
+<%= usage %>
+
+# DESCRIPTION
+
+<%= descr %>
+
+<% if has_options %>
+
+# OPTIONS
+
+```
+
+<%= body %>
+
+```
+
+<% end %>
+
+<% if has_example %>
+
+# EXAMPLES
+
+```
+
+<%= example %>
+
+```
+
+<% end %>
+
+# EXIT VALUES
+
+**0**
+: Success
+
+**not 0**
+: Failure
+
+# SEE ALSO
+
+<% if is_man %>
+
+**vcflib**(1)
+
+<% else %>
+
+[vcflib](./vcflib.md)(1)
+
+<% end %>
+
+# OTHER
+
+## Source code
+
+[<%= cmd %>.cpp](https://github.com/vcflib/vcflib/blob/master/src/<%= cmd %>.cpp)
+
+# LICENSE
+
+Copyright 2011-<%= year %> (C) Erik Garrison and vcflib contributors. MIT licensed.
+
+<!--
+  Created with ./scripts/bin2md.rb scripts/bin2md-template.erb
+-->
