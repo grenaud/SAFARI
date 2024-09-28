@@ -4,6 +4,7 @@
 [submodule "deps/atomic_queue"]
 	path = deps/atomic_queue
 	url = https://github.com/max0x7ba/atomic_queue.git
+	branch = master
 [submodule "deps/xg"]
 	path = deps/xg
 	url = https://github.com/vgteam/xg.git
