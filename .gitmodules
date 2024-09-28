@@ -1,10 +1,10 @@
 [submodule "deps/progress_bar"]
 	path = deps/progress_bar
 	url = https://github.com/vgteam/cpp_progress_bar.git
+        branch = master
 [submodule "deps/atomic_queue"]
 	path = deps/atomic_queue
 	url = https://github.com/max0x7ba/atomic_queue.git
-	branch = master
 [submodule "deps/xg"]
 	path = deps/xg
 	url = https://github.com/vgteam/xg.git
@@ -107,6 +107,7 @@
 [submodule "deps/sparsehash"]
 	path = deps/sparsehash
 	url = https://github.com/sparsehash/sparsehash.git
+        branch = master
 [submodule "deps/sparsepp"]
 	path = deps/sparsepp
 	url = https://github.com/greg7mdp/sparsepp.git
