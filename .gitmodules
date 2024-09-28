@@ -113,3 +113,6 @@
 [submodule "deps/tabixpp"]
 	path = deps/tabixpp
 	url = https://github.com/ekg/tabixpp.git
+[submodule "deps/mmmultimap"]
+	path = deps/mmmultimap
+	url = https://github.com/ekg/mmmultimap.git
