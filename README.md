@@ -7,7 +7,7 @@ SAFARI is a modification of giraffe from a frozen version of vg (Solara, version
 
 ## Compilation
 
-`git clone --recurse-submodules https://github.com/grenaud/SAFARI && cd SAFARI && git submodule update --init --recursive && (cd deps/sparsehash && ./configure) && ./source_me.sh && make -j [threads]
+`git clone --recurse-submodules https://github.com/grenaud/SAFARI && cd SAFARI && git submodule update --init --recursive && (cd deps/sparsehash && ./configure) && ./source_me.sh && make -j [threads]`
 
 ### Basic Options
 
