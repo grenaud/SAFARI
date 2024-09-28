@@ -1,3 +1,0 @@
-[submodule "src/simde"]
-	path = src/simde
-	url = https://github.com/nemequ/simde-no-tests
