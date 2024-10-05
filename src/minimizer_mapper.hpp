@@ -39,7 +39,7 @@ public:
 
     MinimizerMapper(const gbwtgraph::GBWTGraph& graph,
          gbwtgraph::DefaultMinimizerIndex& minimizer_index,
-         const gbwtgraph::DefaultMinimizerIndex& rymer_index,
+         gbwtgraph::DefaultMinimizerIndex& rymer_index,
          SnarlDistanceIndex* distance_index,
          const PathPositionHandleGraph* path_graph = nullptr,
          string deam3pfreqE = "",
@@ -89,8 +89,6 @@ public:
 
     // Mapping settings.
     // TODO: document each
-
-    std::unordered_map<std::string, std::vector<std::pair<std::string, size_t>>> rymer_to_kmers;
 
     Damage dmg;
 
@@ -275,7 +273,7 @@ public:
         return max(distance_limit, read_length + 50);
     }
 
-    const gbwtgraph::DefaultMinimizerIndex& rymer_index;
+    gbwtgraph::DefaultMinimizerIndex& rymer_index;
 
 protected:
 
@@ -295,6 +293,8 @@ protected:
         string read_seq;
         int window_start;
         int run_length;
+        //bool rymer=false;
+        //int m_index=-1;
         vector<int> mismatch_positions;
 
         // Sort the minimizers in descending order by score and group identical minimizers together.
@@ -359,7 +359,7 @@ protected:
     // These are our indexes
     const PathPositionHandleGraph* path_graph; // Can be nullptr; only needed for correctness tracking.
 
-    const gbwtgraph::DefaultMinimizerIndex& minimizer_index;
+    gbwtgraph::DefaultMinimizerIndex& minimizer_index;
 
     SnarlDistanceIndex* distance_index;
     /// This is our primary graph.
