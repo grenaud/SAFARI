@@ -634,7 +634,7 @@ public:
     return true;
   }
 
-
+/*
 std::string get_minimizer_seq(auto &r, auto &rymer_index)
 {
     size_t offset = rymer_index.find_offset(r.value.key, r.value.hash);
@@ -651,6 +651,46 @@ std::string get_minimizer_seq(auto &r, auto &rymer_index)
     }
     return seq;
 }
+*/
+
+std::vector<std::string> get_minimizer_seq(auto &r, auto &rymer_index) {
+    size_t offset = rymer_index.find_offset(r.value.key, r.value.hash);
+    std::vector<std::string> sequences;
+    uint64_t payload = 0;
+
+    auto &cell = rymer_index.hash_table[offset];
+    if (!cell.first.is_pointer()) {
+        payload = cell.second.value.payload.first;
+        if (payload != 0) {
+            std::string seq = gbwtgraph::Key64(payload).decode(rymer_index.k());
+            if (r.value.is_reverse) {
+                seq = reverse_complement(seq);
+            }
+            sequences.push_back(seq);
+        }
+    } else {
+        if (cell.second.pointer && !cell.second.pointer->empty()) {
+            for (const auto &hit : *(cell.second.pointer)) {
+                payload = hit.payload.first;
+                if (payload != 0) {
+                    std::string seq = gbwtgraph::Key64(payload).decode(rymer_index.k());
+                    if (r.value.is_reverse) {
+                        seq = reverse_complement(seq);
+                    }
+                    sequences.push_back(seq);
+                }
+            }
+        }
+    }
+
+    // If no sequences found, return a vector with the default 'N' string
+    if (sequences.empty()) {
+        sequences.push_back(std::string(rymer_index.k(), 'N'));
+    }
+
+    return sequences;
+}
+
 
 void dump_hash_table(){
     int k = this->k();
@@ -669,21 +709,39 @@ void dump_hash_table(){
     return;
 }
 
+void dump_hash_table_rymer() {
+    int k = this->k();  // Get the precomputed k
 
-void dump_hash_table_rymer(){
-int k=this->k();
     // Iterate over each cell in the hash table
     for (const auto& cell : this->hash_table) {
-        // Check if the cell is not empty (i.e., contains a key)
-        if (cell.first != gbwtgraph::Key64::no_key()) {
-            // Decode the sequence from the key, using precomputed k
-            const auto &rymer_seq = cell.first.decode_rymer(k);
-            std::cerr << "RYMER KEY: " << cell.first.get_key() << "  RYMER PAYLOAD: " << cell.second.value.payload.first << '\t' << \
-            cell.second.value.payload.second << "rymer seq: " << rymer_seq << "  kmer seq: " << gbwtgraph::Key64(cell.second.value.payload.first).decode(k) << std::endl;
+        // Check if the key is not a pointer
+        if (!cell.first.is_pointer()) {
+            if (cell.first != gbwtgraph::Key64::no_key()) {
+                // Decode the sequence from the key, using precomputed k
+                //const auto& rymer_seq = cell.first.decode_rymer(k);
+                //std::cerr << "RYMER KEY: " << cell.first.get_key() 
+                //          << "  RYMER PAYLOAD: " << cell.second.value.payload.first 
+                //          << '\t' << cell.second.value.payload.second 
+                //          << " rymer seq: " << rymer_seq 
+                //          << "  kmer seq: " << gbwtgraph::Key64(cell.second.value.payload.first).decode(k)
+                //          << std::endl;
+                                                          }
+        } else {
+            // Iterate over hits if the key points to multiple values
+            for (const auto& hit : *(cell.second.pointer)) {
+                // Decode the sequence from the key, using precomputed k
+                const auto& rymer_seq = cell.first.decode_rymer(k);
+                std::cerr << "RYMER KEY: " << cell.first.get_key() 
+                          << "  RYMER PAYLOAD: " << hit.payload.first 
+                          << '\t' << hit.payload.second 
+                          << " rymer seq: " << rymer_seq 
+                          << "  kmer seq: " << gbwtgraph::Key64(hit.payload.first).decode(k)
+                          << std::endl;
+            }
         }
     }
-    return;
 }
+
 
   MinimizerIndex& operator=(const MinimizerIndex& source)
   {
@@ -872,7 +930,6 @@ key_type kmer2rymer(key_type& kmerKey, int kmerLength) const {
 
     Calls syncmers() if the index uses closed syncmers.
   */
-
 
 
 std::vector<minimizer_type> minimizers(std::string::const_iterator begin, std::string::const_iterator end, bool rymer) const
@@ -1077,8 +1134,14 @@ std::vector<std::tuple<minimizer_type, size_t, size_t>> minimizer_regions(
     while(iter != end)
     {
 
+        if(rymer){
         forward_key.forward(this->k(), *iter, valid_chars);
         reverse_key.reverse(this->k(), *iter);
+        }
+        else{
+        forward_key.forward(this->k(), *iter, valid_chars);
+        reverse_key.reverse(this->k(), *iter);
+            }
 
         if(valid_chars >= this->k()) { buffer.advance(start_pos, forward_key, reverse_key); }
         else { buffer.advance(start_pos); }
@@ -1207,32 +1270,21 @@ std::vector<std::tuple<minimizer_type, size_t, size_t>> minimizer_regions(
   {
     std::vector<std::pair<pos_t, payload_type>> result;
     if(minimizer.empty()) { return result; }
-
-    //std::cerr << "IN FIND, KEY: " << minimizer.key << std::endl;
-    //std::cerr << "IN FIND, RYMER SEQ: " << minimizer.key.decode_rymer(this->k()) << std::endl;
-    //std::cerr << "IN FIND, HASH: " << minimizer.hash << std::endl;
     size_t offset = this->find_offset(minimizer.key, minimizer.key.hash());
-    //std::cerr << "IN FIND, OFFSET: " << offset << std::endl;
     const cell_type& cell = this->hash_table[offset];
-    //std::cerr << "CELL.FIRST: " << cell.first << std::endl;
-    //std::cerr << "CELL.SECOND.FIRST: " << cell.second.first << std::endl;
     if(cell.first == minimizer.key)
     {
       if(cell.first.is_pointer())
       {
         result.reserve(cell.second.pointer->size());
         for(hit_type hit : *(cell.second.pointer)) {
-            //std::cerr << "IN FIND, PAYLOAD: " << hit.payload.first << std::endl;
             result.emplace_back(Position::decode(hit.pos), hit.payload);
                                                    }
       }
       else {
-         //std::cerr << "IN FIND, PAYLOAD: " << cell.second.value.payload.first << std::endl;
          result.emplace_back(Position::decode(cell.second.value.pos), cell.second.value.payload);
            }
     }
-
-    //std::cerr << "END OF FINDING HASH TABLE, CAME UP EMPTY" << std::endl;
     return result;
   }
 
@@ -1448,7 +1500,7 @@ size_t find_offset(key_type key, size_t hash) const
       return offset;
     }
     if(this->hash_table[offset].first == key) {
-      return offset; 
+      return offset;
     }
 
     // Quadratic probing with triangular numbers.
