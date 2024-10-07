@@ -296,7 +296,7 @@ inline bool parse(const string& arg, typename enable_if<is_instantiation_of<Resu
 }
 
 // Try stripping all suffixes in the vector, one at a time, and return on failure.
-std::string strip_suffixes(std::string filename, const std::vector<std::string>& suffixes) {
+std::string strip_suffixes_safari(std::string filename, const std::vector<std::string>& suffixes) {
     for (const std::string& suffix : suffixes) {
         if (filename.length() > suffix.length() && filename.substr(filename.length() - suffix.length()) == suffix) {
             filename = filename.substr(0, filename.length() - suffix.length());
@@ -309,69 +309,69 @@ std::string strip_suffixes(std::string filename, const std::vector<std::string>&
 
 void help_safari(char** argv) {
     cerr
-    << "usage: " << argv[0] << " safari [options] [ref.fa [variants.vcf.gz]] > output.gam" << endl
-    << "Fast haplotype-aware short read mapper." << endl
-    << endl
-    << "basic options:" << endl
-    << "  -Z, --gbz-name FILE           use this GBZ file (GBWT index + GBWTGraph)" << endl
-    << "  -m, --minimizer-name FILE     use this minimizer index" << endl
-    << "  -q, --rymer-name FILE         use this rymer index" << endl
-    << "  -d, --dist-name FILE          cluster using this distance index" << endl
-    << "  -p, --progress                show progress" << endl
-    << "input options:" << endl
-    << "  -G, --gam-in FILE             read and realign GAM-format reads from FILE" << endl
-    << "  -f, --fastq-in FILE           read and align FASTQ-format reads from FILE (two are allowed, one for each mate)" << endl
-    << "  -i, --interleaved             GAM/FASTQ input is interleaved pairs, for paired-end alignment" << endl
-    << "   --deam-3p FILE               3' end deamination rate matrix (must end in .prof)" << endl
-    << "   --deam-5p FILE               5' end deamination rate matrix (must end in .prof)" << endl
-    << "alternate indexes:" << endl
-    << "  -x, --xg-name FILE            use this xg index or graph" << endl
-    << "  -g, --graph-name FILE         use this GBWTGraph" << endl
-    << "  -H, --gbwt-name FILE          use this GBWT index" << endl
-    << "output options:" << endl
-    << "  -M, --max-multimaps INT       produce up to INT alignments for each read [1]" << endl
-    << "  -N, --sample NAME             add this sample name" << endl
-    << "  -R, --read-group NAME         add this read group" << endl
-    << "  -o, --output-format NAME      output the alignments in NAME format (gam / gaf / json / tsv / SAM / BAM / CRAM) [gam]" << endl
-    << "  --ref-paths FILE              ordered list of paths in the graph, one per line or HTSlib .dict, for HTSLib @SQ headers" << endl
-    << "  --named-coordinates           produce GAM outputs in named-segment (GFA) space" << endl
-    << "  -P, --prune-low-cplx          prune short and low complexity anchors during linear format realignment" << endl
-    << "  -n, --discard                 discard all output alignments (for profiling)" << endl
-    << "  --output-basename NAME        write output to a GAM file beginning with the given prefix for each setting combination" << endl
-    << "  --report-name NAME            write a TSV of output file and mapping speed to the given file" << endl
-    << "  --show-work                   log how the mapper comes to its conclusions about mapping locations" << endl
-    << "algorithm presets:" << endl
-    << "  -b, --parameter-preset NAME   set computational parameters (fast / default) [default]" << endl
-    << "computational parameters:" << endl
-    << "  -c, --hit-cap INT             use all minimizers with at most INT hits [10]" << endl
-    << "  -C, --hard-hit-cap INT        ignore all minimizers with more than INT hits [500]" << endl
-    << "  -F, --score-fraction FLOAT    select minimizers between hit caps until score is FLOAT of total [0.9]" << endl
-    << "  -D, --distance-limit INT      cluster using this distance limit [200]" << endl
-    << "  -e, --max-extensions INT      extend up to INT clusters [800]" << endl
-    << "  -a, --max-alignments INT      align up to INT extensions [8]" << endl
-    << "  -s, --cluster-score INT       only extend clusters if they are within INT of the best score [50]" << endl
-    << "  -S, --pad-cluster-score INT   also extend clusters within INT of above threshold to get a second-best cluster [0]" << endl
-    << "  -u, --cluster-coverage FLOAT  only extend clusters if they are within FLOAT of the best read coverage [0.3]" << endl
-    << "  -U, --max-min INT             use at most INT minimizers [500]" << endl
-    << "  --num-bp-per-min INT          use maximum of number minimizers calculated by READ_LENGTH / INT and --max-min [1000]" << endl
-    << "  -v, --extension-score INT     only align extensions if their score is within INT of the best score [1]" << endl
-    << "  -w, --extension-set INT       only align extension sets if their score is within INT of the best score [20]" << endl
-    << "  -O, --no-dp                   disable all gapped alignment" << endl
-    << "  --align-from-chains           chain up extensions to create alignments, instead of doing each separately" << endl
-    << "  -r, --rescue-attempts         attempt up to INT rescues per read in a pair [15]" << endl
-    << "  -A, --rescue-algorithm NAME   use algorithm NAME for rescue (none / dozeu / gssw) [dozeu]" << endl
-    << "  -L, --max-fragment-length INT assume that fragment lengths should be smaller than INT when estimating the fragment length distribution" << endl
-    << "  --exclude-overlapping-min     exclude overlapping minimizers" << endl
-    << "  --fragment-mean FLOAT         force the fragment length distribution to have this mean (requires --fragment-stdev)" << endl
-    << "  --fragment-stdev FLOAT        force the fragment length distribution to have this standard deviation (requires --fragment-mean)" << endl
-    << "  --paired-distance-limit FLOAT cluster pairs of read using a distance limit FLOAT standard deviations greater than the mean [2.0]" << endl
-    << "  --rescue-subgraph-size FLOAT  search for rescued alignments FLOAT standard deviations greater than the mean [4.0]" << endl
-    << "  --rescue-seed-limit INT       attempt rescue with at most INT seeds [100]" << endl
-    << "  --track-provenance            track how internal intermediate alignment candidates were arrived at" << endl
-    << "  --track-correctness           track if internal intermediate alignment candidates are correct (implies --track-provenance)" << endl
-    << "  -j, --posterior-threshold FLOAT             cutoff for posterior on correct alignment when using RYmers" << endl
-    << "  -V, --spurious-prior FLOAT             Prior on spurious alignment when using RYmers" << endl
-    << "  -t, --threads INT             number of mapping threads to use" << endl;
+        << "usage: " << argv[0] << " safari [options] [ref.fa [variants.vcf.gz]] > output.gam" << endl
+        << "Fast haplotype-aware short read mapper for ancient DNA." << endl
+        << endl
+        << "basic options:" << endl
+        << "      -Z, --gbz-name FILE           use this GBZ file (GBWT index + GBWTGraph)" << endl
+        << "      -m, --minimizer-name FILE     use this minimizer index" << endl
+        << "      -q, --rymer-name FILE         use this RYmer index" << endl
+        << "      -d, --dist-name FILE          cluster using this distance index" << endl
+        << "      -p, --progress                show progress" << endl
+        << "input options:" << endl
+        << "      -G, --gam-in FILE             read and realign GAM-format reads from FILE" << endl
+        << "      -f, --fastq-in FILE           read and align FASTQ-format reads from FILE (two are allowed, one for each mate)" << endl
+        << "      -i, --interleaved             GAM/FASTQ input is interleaved pairs, for paired-end alignment" << endl
+        << "          --deam-3p FILE            3' end deamination rate matrix (must end in .prof)" << endl
+        << "          --deam-5p FILE            5' end deamination rate matrix (must end in .prof)" << endl
+        << "alternate indexes:" << endl
+        << "      -x, --xg-name FILE            use this xg index or graph" << endl
+        << "      -g, --graph-name FILE         use this GBWTGraph" << endl
+        << "      -H, --gbwt-name FILE          use this GBWT index" << endl
+        << "output options:" << endl
+        << "      -M, --max-multimaps INT       produce up to INT alignments for each read [1]" << endl
+        << "      -N, --sample NAME             add this sample name" << endl
+        << "      -R, --read-group NAME         add this read group" << endl
+        << "      -o, --output-format NAME      output the alignments in NAME format (gam / gaf / json / tsv / SAM / BAM / CRAM) [gam]" << endl
+        << "          --ref-paths FILE          ordered list of paths in the graph, one per line or HTSlib .dict, for HTSLib @SQ headers" << endl
+        << "          --named-coordinates       produce GAM outputs in named-segment (GFA) space" << endl
+        << "      -P, --prune-low-cplx          prune short and low complexity anchors during linear format realignment" << endl
+        << "      -n, --discard                 discard all output alignments (for profiling)" << endl
+        << "          --output-basename NAME    write output to a GAM file beginning with the given prefix for each setting combination" << endl
+        << "          --report-name NAME        write a TSV of output file and mapping speed to the given file" << endl
+        << "          --show-work               log how the mapper comes to its conclusions about mapping locations" << endl
+        << "algorithm presets:" << endl
+        << "      -b, --parameter-preset NAME   set computational parameters (fast / default) [default]" << endl
+        << "computational parameters:" << endl
+        << "      -c, --hit-cap INT             use all minimizers with at most INT hits [10]" << endl
+        << "      -C, --hard-hit-cap INT        ignore all minimizers with more than INT hits [500]" << endl
+        << "      -F, --score-fraction FLOAT    select minimizers between hit caps until score is FLOAT of total [0.9]" << endl
+        << "      -D, --distance-limit INT      cluster using this distance limit [200]" << endl
+        << "      -e, --max-extensions INT      extend up to INT clusters [800]" << endl
+        << "      -a, --max-alignments INT      align up to INT extensions [8]" << endl
+        << "      -s, --cluster-score INT       only extend clusters if they are within INT of the best score [50]" << endl
+        << "      -S, --pad-cluster-score INT   also extend clusters within INT of above threshold to get a second-best cluster [0]" << endl
+        << "      -u, --cluster-coverage FLOAT  only extend clusters if they are within FLOAT of the best read coverage [0.3]" << endl
+        << "      -U, --max-min INT             use at most INT minimizers [500]" << endl
+        << "          --num-bp-per-min INT      use maximum of number minimizers calculated by READ_LENGTH / INT and --max-min [1000]" << endl
+        << "      -v, --extension-score INT     only align extensions if their score is within INT of the best score [1]" << endl
+        << "      -w, --extension-set INT       only align extension sets if their score is within INT of the best score [20]" << endl
+        << "      -O, --no-dp                   disable all gapped alignment" << endl
+        << "          --align-from-chains       chain up extensions to create alignments, instead of doing each separately" << endl
+        << "      -r, --rescue-attempts         attempt up to INT rescues per read in a pair [15]" << endl
+        << "      -A, --rescue-algorithm NAME   use algorithm NAME for rescue (none / dozeu / gssw) [dozeu]" << endl
+        << "      -L, --max-fragment-length INT assume that fragment lengths should be smaller than INT when estimating the fragment length distribution" << endl
+        << "          --exclude-overlapping-min exclude overlapping minimizers" << endl
+        << "          --fragment-mean FLOAT     force the fragment length distribution to have this mean (requires --fragment-stdev)" << endl
+        << "          --fragment-stdev FLOAT    force the fragment length distribution to have this standard deviation (requires --fragment-mean)" << endl
+        << "          --paired-distance-limit FLOAT cluster pairs of read using a distance limit FLOAT standard deviations greater than the mean [2.0]" << endl
+        << "          --rescue-subgraph-size FLOAT search for rescued alignments FLOAT standard deviations greater than the mean [4.0]" << endl
+        << "          --rescue-seed-limit INT   attempt rescue with at most INT seeds [100]" << endl
+        << "          --track-provenance        track how internal intermediate alignment candidates were arrived at" << endl
+        << "          --track-correctness       track if internal intermediate alignment candidates are correct (implies --track-provenance)" << endl
+        << "      -j, --posterior-threshold FLOAT cutoff for posterior on correct alignment when using RYmers" << endl
+        << "      -V, --spurious-prior FLOAT    prior on spurious alignment when using RYmers" << endl
+        << "      -t, --threads INT             number of mapping threads to use" << endl;
 }
 
 int main_safari(int argc, char** argv) {
@@ -617,7 +617,7 @@ int main_safari(int argc, char** argv) {
 
                 // If we have a GBZ we probably want to use its name as the base name.
                 // But see -g.
-                registry.set_prefix(strip_suffixes(std::string(optarg), { ".gbz", ".safari" }));
+                registry.set_prefix(strip_suffixes_safari(std::string(optarg), { ".gbz", ".safari" }));
 
                 break;
 
@@ -1215,7 +1215,6 @@ if (deam3pfreqE == "" || deam5pfreqE == ""){throw runtime_error("[safari] Must p
     // Grab rymer index
     auto rymer_index = vg::io::VPKG::load_one<gbwtgraph::DefaultMinimizerIndex>(registry.require("Rymers").at(0));
 
-
     // Grab the GBZ
     auto gbz = vg::io::VPKG::load_one<gbwtgraph::GBZ>(registry.require("safari GBZ").at(0));
 
@@ -1241,7 +1240,7 @@ if (deam3pfreqE == "" || deam5pfreqE == ""){throw runtime_error("[safari] Must p
             xg_graph = vg::io::VPKG::load_one<PathHandleGraph>(registry.require("XG").at(0));
             base_graph = xg_graph.get();
         }
-    
+
         // Apply the overlay if needed.
         path_position_graph = overlay_helper.apply(base_graph);
     }
@@ -1252,7 +1251,6 @@ if (deam3pfreqE == "" || deam5pfreqE == ""){throw runtime_error("[safari] Must p
     }
     MinimizerMapper minimizer_mapper(gbz->graph, *minimizer_index, *rymer_index, &*distance_index, path_position_graph, deam3pfreqE, deam5pfreqE);
 
-    //minimizer_mapper.rymer_index.print_hash_table();
 
     if (forced_mean && forced_stdev) {
         minimizer_mapper.force_fragment_length_distr(fragment_mean, fragment_stdev);

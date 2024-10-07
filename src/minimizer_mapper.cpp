@@ -714,7 +714,6 @@ void MinimizerMapper::map(Alignment& aln, AlignmentEmitter& alignment_emitter) {
 }
 
 bool foundMatchingKey=false;
-size_t rymer_count = 0;
 size_t minimizer_count = 0;
 
 std::tuple<std::string, std::string, int> get_read_seq(const std::string& aln_seq, const std::string& rymer_seq, const std::string& minimizer_seq) {
@@ -771,11 +770,6 @@ vector<Alignment> MinimizerMapper::map(Alignment& aln) {
 
 std::vector<Minimizer> minimizers = this->find_minimizers(aln.sequence(), funnel, false);
 std::vector<Minimizer> minimizers_rymer = this->find_minimizers(aln.sequence(), funnel, true);
-
-//std::set<int> key_set;
-//for (const auto& m : minimizers) {
-//    key_set.insert(m.value.key);
-//}
 
 
 for (auto & r : minimizers_rymer) {
