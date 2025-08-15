@@ -123,12 +123,12 @@ bin/vg rymer -d SAFARI_graph/hominin.dist -g SAFARI_graph/hominin.gbwt -t [# thr
 Then run:
 
 ```bash
-bin/vg safari -f test/SAFARI/reads.fq.gz
--m SAFARI_graph/hominin.min
--q SAFARI_graph/hominin.ry
--Z SAFARI_graph/hominin.giraffe.gbz
--d SAFARI_graph/hominin.dist
---deam-3p test/SAFARI/dhigh3p.prof
+bin/vg safari -f test/SAFARI/reads.fq.gz \
+-m SAFARI_graph/hominin.min \
+-q SAFARI_graph/hominin.ry \
+-Z SAFARI_graph/hominin.giraffe.gbz \
+-d SAFARI_graph/hominin.dist \
+--deam-3p test/SAFARI/dhigh3p.prof \
 --deam-5p test/SAFARI/dhigh3p.prof > SAFARI_test.gam
 ```
 
