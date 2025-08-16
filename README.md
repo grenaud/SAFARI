@@ -9,6 +9,8 @@ SAFARI is a modification of giraffe from a frozen version of vg (Solara, version
 
 `git clone --recurse-submodules https://github.com/grenaud/SAFARI && cd SAFARI && git submodule update --init --recursive && (cd deps/sparsehash && ./configure) && ./source_me.sh && make -j [threads]`
 
+Please note that SAFARI requires many dependencies, including non-standard dependencies like protobuf and jansson, which means that non-root users will likely be unable to compile on their own. We hope these users will either avail themselves of the static binary provided here, or else request compilation from someone with root access.
+
 ### Basic Options
 
 - `-Z, --gbz-name FILE` : use this GBZ file (GBWT index + GBWTGraph)
