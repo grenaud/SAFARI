@@ -148,141 +148,141 @@ You can obtain a bam file using the command "surject" on the resulting gam file 
 
 ## Dependencies
 
-BBHash
+**BBHash**
 
 Limasset, A., Rizk, G., Chikhi, R., & Peterlongo, P. (2017). Fast and scalable minimal perfect hashing for massive key sets. arXiv preprint arXiv:1702.03154.
 
-DYNAMIC
+**DYNAMIC**
 
 Prezza, N. (2017). A framework of dynamic data structures for string processing. arXiv preprint arXiv:1701.07238.
 
-FlameGraph
+**FlameGraph**
 
-atomic_queue
+**atomic_queue**
 
 max0x. (2025). atomic_queue [Computer software]. GitHub. https://github.com/max0x7ba/atomic_queue
 
-backward-cpp
+**backward-cpp**
 
 bombela. (2025). backward-cpp [Computer software]. GitHub. https://github.com/bombela/backward-cpp
 
-bash-tap
+**bash-tap**
 
-dozeu
+**dozeu**
 
 ocxtal. (2025). dozeu [Computer software]. GitHub. https://github.com/ocxtal/dozeu
 
-elfutils
+**elfutils**
 
-fastahack
+**fastahack**
 
 ekg. (2025). fastahack [Computer software]. GitHub. https://github.com/ekg/fastahack
 
-fermi-lite
+**fermi-lite**
 
-gbwt
+**gbwt**
 
 Sirén, J., Garrison, E., Novak, A. M., Paten, B., & Durbin, R. (2020). Haplotype-aware graph indexes. Bioinformatics, 36(2), 400-407.
 
-gbwtgraph
+**gbwtgraph**
 
 Sirén, J., Monlong, J., Chang, X., Novak, A. M., Eizenga, J. M., Markello, C., ... & Paten, B. (2021). Pangenomics enables genotyping of known structural variants in 5202 diverse genomes. Science, 374(6574), abg8871.
 
-gcsa2
+**gcsa2**
 
 Sirén, J. (2017). Indexing variation graphs. In 2017 Proceedings of the ninteenth workshop on algorithm engineering and experiments (ALENEX) (pp. 13-27). Society for Industrial and Applied Mathematics.
 
-gssw
+**gssw**
 
 Zhao, M., Lee, W. P., Garrison, E. P., & Marth, G. T. (2013). SSW library: an SIMD Smith-Waterman C/C++ library for use in genomic applications. PloS one, 8(12), e82138.
 
-htslib
+**htslib**
 
 Bonfield, J. K., Marshall, J., Danecek, P., Li, H., Ohan, V., Whitwham, A., ... & Davies, R. M. (2021). HTSlib: C library for reading/writing high-throughput sequencing data. Gigascience, 10(2), giab007.
 
-ips4o
+**ips4o**
 
-jemalloc
+**jemalloc**
 
 jemalloc. (2025). jemalloc [Computer software]. GitHub. https://github.com/jemalloc/jemalloc
 
-libVCFH
+**libVCFH**
 
 edawson. (2025). libVCFH [Computer software]. GitHub. https://github.com/edawson/libVCFH
 
-libbdsg
+**libbdsg**
 
 Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S., ... & Garrison, E. (2020). Efficient dynamic variation graphs. Bioinformatics, 36(21), 5139-5144.
 
-libdeflate
+**libdeflate**
 
-libhandlegraph
+**libhandlegraph**
 
 Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S., ... & Garrison, E. (2020). Efficient dynamic variation graphs. Bioinformatics, 36(21), 5139-5144.
 
-libvgio
+**libvgio**
 
-lru cache
+**lru_cache**
 
 ekg. (2025).  lru_cache [Computer software]. GitHub. https://github.com/ekg/lru_cache
 
-mio
+**mio**
 
-mmmultimap
+**mmmultimap**
 
 ekg. (2025). mmmulti [Computer software]. GitHub. https://github.com/ekg/mmmulti
 
-pinchesAndCacti
+**pinchesAndCacti**
 
 ComparativeGenomicsToolkit. (2025). pinchesAndCacti [Computer software]. GitHub. https://github.com/ComparativeGenomicsToolkit/pinchesAndCacti
 
-progress_bar
+**progress_bar**
 
 htailor. (2025). cpp_progress_bar [Computer software]. GitHub. https://github.com/htailor/cpp_progress_bar
 
-raptor
+**raptor**
 
 dajobe. (2025). raptor [Computer software]. GitHub. [https://github.com/htailor/cpp_progress_bar](https://github.com/dajobe/raptor)
 
 htailor. (2025). cpp_progress_bar [Computer software]. GitHub. https://github.com/htailor/cpp_progress_bar
 
-sdsl-lite
+**sdsl-lite**
 
 Gog, S., Beller, T., Moffat, A., & Petri, M. (2014, June). From theory to practice: Plug and play with succinct data structures. In International Symposium on Experimental Algorithms (pp. 326-337). Cham: Springer International Publishing.
 
-sha1
+**sha1**
 
-snappy
+**snappy**
 
 Google. (2025). snappy [Computer software]. GitHub. https://github.com/google/snappy
 
-sonLib
+**sonLib**
 
-sparsehash
+**sparsehash**
 
 sparsehash. (2025). sparsehash [Computer software]. GitHub. https://github.com/sparsehash/sparsehash
 
-sparsepp
+**sparsepp**
 
-ssw
+**ssw**
 
-structures
+**structures**
 
 jeizenga (2025). structures [Computer software]. GitHub. https://github.com/jeizenga/structures
 
-sublinearLi-Stephens
+**sublinearLi-Stephens**
 
 Rosen, Y. M., & Paten, B. J. (2019). An average-case sublinear forward algorithm for the haploid Li and Stephens model. Algorithms for Molecular Biology, 14(1), 11.
 
-tabixpp
+**tabixpp**
 
 vcflib. (2025). tabixpp [Computer software]. GitHub. https://github.com/vcflib/tabixpp
 
-vcflib
+**vcflib**
 
 Garrison, E., Kronenberg, Z. N., Dawson, E. T., Pedersen, B. S., & Prins, P. (2022). A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLoS computational biology, 18(5), e1009123.
 
-xg
+**xg**
 
 vgteam. (2025). xg [Computer software]. GitHub. https://github.com/vgteam/xg
 
