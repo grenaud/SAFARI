@@ -146,6 +146,92 @@ bin/vg stats -a SAFARI_test.gam
 
 You can obtain a bam file using the command "surject" on the resulting gam file from the vg toolkit (https://github.com/vgteam/vg).
 
+## Dependencies
+
+BBHash
+
+Limasset, A., Rizk, G., Chikhi, R., & Peterlongo, P. (2017). Fast and scalable minimal perfect hashing for massive key sets. arXiv preprint arXiv:1702.03154.
+
+DYNAMIC
+
+FlameGraph
+
+atomic_queue
+
+backward-cpp
+
+bash-tap
+
+dozeu
+
+elfutils
+
+fastahack
+
+fermi-lite
+
+gbwt
+
+gbwtgraph
+
+gcsa2
+
+gssw
+
+htslib
+
+Bonfield, J. K., Marshall, J., Danecek, P., Li, H., Ohan, V., Whitwham, A., ... & Davies, R. M. (2021). HTSlib: C library for reading/writing high-throughput sequencing data. Gigascience, 10(2), giab007.
+
+ips4o
+
+jemalloc
+
+libVCFH
+
+libbdsg
+
+libdeflate
+
+libhandlegraph
+
+libvgio
+
+lru cache
+
+mio
+
+mmmultimap
+
+pinchesAndCacti,
+
+progress_bar
+
+raptor
+
+sdsl-lite
+
+sha1
+
+snappy
+
+sonLib
+
+sparsehash
+
+sparsepp
+
+ssw
+
+structures
+
+sublinearLi-Stephens
+
+tabixpp
+
+vcflib
+
+xg
+
 ## Contact
 
 For questions, contact Joshua Rubin (jdru@dtu.dk) or Gabriel Renaud (gabriel.reno@gmail.com)
