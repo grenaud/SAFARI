@@ -160,7 +160,11 @@ FlameGraph
 
 atomic_queue
 
+max0x. (2025). atomic_queue [Computer software]. GitHub. https://github.com/max0x7ba/atomic_queue
+
 backward-cpp
+
+bombela. (2025). backward-cpp [Computer software]. GitHub. https://github.com/bombela/backward-cpp
 
 bash-tap
 
@@ -171,6 +175,8 @@ ocxtal. (2025). dozeu [Computer software]. GitHub. https://github.com/ocxtal/doz
 elfutils
 
 fastahack
+
+ekg. (2025). fastahack [Computer software]. GitHub. https://github.com/ekg/fastahack
 
 fermi-lite
 
@@ -202,6 +208,8 @@ jemalloc. (2025). jemalloc [Computer software]. GitHub. https://github.com/jemal
 
 libVCFH
 
+edawson. (2025). libVCFH [Computer software]. GitHub. https://github.com/edawson/libVCFH
+
 libbdsg
 
 Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S., ... & Garrison, E. (2020). Efficient dynamic variation graphs. Bioinformatics, 36(21), 5139-5144.
@@ -210,15 +218,19 @@ libdeflate
 
 libhandlegraph
 
+Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S., ... & Garrison, E. (2020). Efficient dynamic variation graphs. Bioinformatics, 36(21), 5139-5144.
+
 libvgio
 
 lru cache
+
+ekg. (2025).  lru_cache [Computer software]. GitHub. https://github.com/ekg/lru_cache
 
 mio
 
 mmmultimap
 
-ekg. (2025). mmulti [Computer software]. GitHub. https://github.com/ekg/mmmulti
+ekg. (2025). mmmulti [Computer software]. GitHub. https://github.com/ekg/mmmulti
 
 pinchesAndCacti
 
@@ -256,13 +268,23 @@ ssw
 
 structures
 
+jeizenga (2025). structures [Computer software]. GitHub. https://github.com/jeizenga/structures
+
 sublinearLi-Stephens
+
+Rosen, Y. M., & Paten, B. J. (2019). An average-case sublinear forward algorithm for the haploid Li and Stephens model. Algorithms for Molecular Biology, 14(1), 11.
 
 tabixpp
 
+vcflib. (2025). tabixpp [Computer software]. GitHub. https://github.com/vcflib/tabixpp
+
 vcflib
 
+Garrison, E., Kronenberg, Z. N., Dawson, E. T., Pedersen, B. S., & Prins, P. (2022). A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar. PLoS computational biology, 18(5), e1009123.
+
 xg
+
+vgteam. (2025). xg [Computer software]. GitHub. https://github.com/vgteam/xg
 
 ## Contact
 
