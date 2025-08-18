@@ -210,13 +210,19 @@ raptor
 
 sdsl-lite
 
+Gog, S., Beller, T., Moffat, A., & Petri, M. (2014, June). From theory to practice: Plug and play with succinct data structures. In International Symposium on Experimental Algorithms (pp. 326-337). Cham: Springer International Publishing.
+
 sha1
 
 snappy
 
+Google. (2025). snappy [Computer software]. GitHub. https://github.com/google/snappy
+
 sonLib
 
 sparsehash
+
+sparsehash. (2025). sparsehash [Computer software]. GitHub. https://github.com/sparsehash/sparsehash
 
 sparsepp
 
