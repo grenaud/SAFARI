@@ -164,6 +164,8 @@ bash-tap
 
 dozeu
 
+ocxtal. (2025). dozeu [Computer software]. GitHub. https://github.com/ocxtal/dozeu
+
 elfutils
 
 fastahack
@@ -178,6 +180,8 @@ gcsa2
 
 gssw
 
+Zhao, M., Lee, W. P., Garrison, E. P., & Marth, G. T. (2013). SSW library: an SIMD Smith-Waterman C/C++ library for use in genomic applications. PloS one, 8(12), e82138.
+
 htslib
 
 Bonfield, J. K., Marshall, J., Danecek, P., Li, H., Ohan, V., Whitwham, A., ... & Davies, R. M. (2021). HTSlib: C library for reading/writing high-throughput sequencing data. Gigascience, 10(2), giab007.
@@ -186,9 +190,13 @@ ips4o
 
 jemalloc
 
+jemalloc. (2025). jemalloc [Computer software]. GitHub. https://github.com/jemalloc/jemalloc
+
 libVCFH
 
 libbdsg
+
+Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S., ... & Garrison, E. (2020). Efficient dynamic variation graphs. Bioinformatics, 36(21), 5139-5144.
 
 libdeflate
 
@@ -202,7 +210,9 @@ mio
 
 mmmultimap
 
-pinchesAndCacti,
+pinchesAndCacti
+
+ComparativeGenomicsToolkit. (2025). pinchesAndCacti [Computer software]. GitHub. https://github.com/ComparativeGenomicsToolkit/pinchesAndCacti
 
 progress_bar
 
