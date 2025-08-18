@@ -154,6 +154,8 @@ Limasset, A., Rizk, G., Chikhi, R., & Peterlongo, P. (2017). Fast and scalable m
 
 DYNAMIC
 
+Prezza, N. (2017). A framework of dynamic data structures for string processing. arXiv preprint arXiv:1701.07238.
+
 FlameGraph
 
 atomic_queue
@@ -174,9 +176,15 @@ fermi-lite
 
 gbwt
 
+Sirén, J., Garrison, E., Novak, A. M., Paten, B., & Durbin, R. (2020). Haplotype-aware graph indexes. Bioinformatics, 36(2), 400-407.
+
 gbwtgraph
 
+Sirén, J., Monlong, J., Chang, X., Novak, A. M., Eizenga, J. M., Markello, C., ... & Paten, B. (2021). Pangenomics enables genotyping of known structural variants in 5202 diverse genomes. Science, 374(6574), abg8871.
+
 gcsa2
+
+Sirén, J. (2017). Indexing variation graphs. In 2017 Proceedings of the ninteenth workshop on algorithm engineering and experiments (ALENEX) (pp. 13-27). Society for Industrial and Applied Mathematics.
 
 gssw
 
@@ -210,13 +218,21 @@ mio
 
 mmmultimap
 
+ekg. (2025). mmulti [Computer software]. GitHub. https://github.com/ekg/mmmulti
+
 pinchesAndCacti
 
 ComparativeGenomicsToolkit. (2025). pinchesAndCacti [Computer software]. GitHub. https://github.com/ComparativeGenomicsToolkit/pinchesAndCacti
 
 progress_bar
 
+htailor. (2025). cpp_progress_bar [Computer software]. GitHub. https://github.com/htailor/cpp_progress_bar
+
 raptor
+
+dajobe. (2025). raptor [Computer software]. GitHub. [https://github.com/htailor/cpp_progress_bar](https://github.com/dajobe/raptor)
+
+htailor. (2025). cpp_progress_bar [Computer software]. GitHub. https://github.com/htailor/cpp_progress_bar
 
 sdsl-lite
 
