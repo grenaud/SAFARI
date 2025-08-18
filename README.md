@@ -158,6 +158,8 @@ Prezza, N. (2017). A framework of dynamic data structures for string processing.
 
 **FlameGraph**
 
+brendangregg. (2025). FlameGraph [Computer software]. GitHub. https://github.com/brendangregg/FlameGraph
+
 **atomic_queue**
 
 max0x. (2025). atomic_queue [Computer software]. GitHub. https://github.com/max0x7ba/atomic_queue
@@ -168,17 +170,23 @@ bombela. (2025). backward-cpp [Computer software]. GitHub. https://github.com/bo
 
 **bash-tap**
 
+illusori. (2025). bash-tap [Computer software]. GitHub. https://github.com/illusori/bash-tap
+
 **dozeu**
 
 ocxtal. (2025). dozeu [Computer software]. GitHub. https://github.com/ocxtal/dozeu
 
 **elfutils**
 
+roolebo. (2025). elfutils [Computer software]. GitHub. https://github.com/roolebo/elfutils
+
 **fastahack**
 
 ekg. (2025). fastahack [Computer software]. GitHub. https://github.com/ekg/fastahack
 
 **fermi-lite**
+
+edawson. (2025). fermi-lite [Computer software]. GitHub. https://github.com/edawson/fermi-lite
 
 **gbwt**
 
@@ -202,6 +210,8 @@ Bonfield, J. K., Marshall, J., Danecek, P., Li, H., Ohan, V., Whitwham, A., ... 
 
 **ips4o**
 
+Axtmann, M., Witt, S., Ferizovic, D., & Sanders, P. (2017). In-place Parallel Super Scalar Samplesort (IPS $^ 4$ o). arXiv preprint arXiv:1705.02257.
+
 **jemalloc**
 
 jemalloc. (2025). jemalloc [Computer software]. GitHub. https://github.com/jemalloc/jemalloc
@@ -216,11 +226,15 @@ Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S.,
 
 **libdeflate**
 
+ebiggers. (2025). libdeflate [Computer software]. GitHub. https://github.com/ebiggers/libdeflate
+
 **libhandlegraph**
 
 Eizenga, J. M., Novak, A. M., Kobayashi, E., Villani, F., Cisar, C., Heumos, S., ... & Garrison, E. (2020). Efficient dynamic variation graphs. Bioinformatics, 36(21), 5139-5144.
 
 **libvgio**
+
+vgteam. (2025). libvgio [Computer software]. GitHub. https://github.com/vgteam/libvgio
 
 **lru_cache**
 
@@ -258,6 +272,8 @@ Google. (2025). snappy [Computer software]. GitHub. https://github.com/google/sn
 
 **sonLib**
 
+benedictpaten. (2025). sonLib [Computer software]. GitHub. https://github.com/benedictpaten/sonLib
+
 **sparsehash**
 
 sparsehash. (2025). sparsehash [Computer software]. GitHub. https://github.com/sparsehash/sparsehash
@@ -265,6 +281,8 @@ sparsehash. (2025). sparsehash [Computer software]. GitHub. https://github.com/s
 **sparsepp**
 
 **ssw**
+
+Zhao, M., Lee, W. P., Garrison, E. P., & Marth, G. T. (2013). SSW library: an SIMD Smith-Waterman C/C++ library for use in genomic applications. PloS one, 8(12), e82138.
 
 **structures**
 
