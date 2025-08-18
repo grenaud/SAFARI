@@ -242,6 +242,8 @@ ekg. (2025).  lru_cache [Computer software]. GitHub. https://github.com/ekg/lru_
 
 **mio**
 
+vimpunk. (2025). mio[Computer software]. GitHub. https://github.com/vimpunk/mio
+
 **mmmultimap**
 
 ekg. (2025). mmmulti [Computer software]. GitHub. https://github.com/ekg/mmmulti
@@ -256,15 +258,15 @@ htailor. (2025). cpp_progress_bar [Computer software]. GitHub. https://github.co
 
 **raptor**
 
-dajobe. (2025). raptor [Computer software]. GitHub. [https://github.com/htailor/cpp_progress_bar](https://github.com/dajobe/raptor)
-
-htailor. (2025). cpp_progress_bar [Computer software]. GitHub. https://github.com/htailor/cpp_progress_bar
+dajobe. (2025). raptor [Computer software]. GitHub. https://github.com/dajobe/raptor
 
 **sdsl-lite**
 
 Gog, S., Beller, T., Moffat, A., & Petri, M. (2014, June). From theory to practice: Plug and play with succinct data structures. In International Symposium on Experimental Algorithms (pp. 326-337). Cham: Springer International Publishing.
 
 **sha1**
+
+vog. (2025). sha1 [Computer software]. GitHub. https://github.com/vog/sha1
 
 **snappy**
 
@@ -279,6 +281,8 @@ benedictpaten. (2025). sonLib [Computer software]. GitHub. https://github.com/be
 sparsehash. (2025). sparsehash [Computer software]. GitHub. https://github.com/sparsehash/sparsehash
 
 **sparsepp**
+
+greg7mdp (2025). sparsepp [Computer software]. GitHub. https://github.com/greg7mdp/sparsepp
 
 **ssw**
 
